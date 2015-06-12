@@ -22,8 +22,8 @@ class UserStoresController(object):
         """
         Constructor with authentication and configuration parameters
         """
-        self.__clientId = client_id
-        self.__clientSecret = client_secret
+        self.__client_id = client_id
+        self.__client_secret = client_secret
 
     def user_stores_get_all_stores(self,
                                    user_id,
@@ -73,8 +73,8 @@ class UserStoresController(object):
         query_builder = APIHelper.append_url_with_query_parameters(query_builder, {
             "page": page,
             "per_page": per_page,
-            "client_id": self.__clientId,
-            "client_secret": self.__clientSecret
+            "client_id": self.__client_id,
+            "client_secret": self.__client_secret
         })
 
         # Validate and preprocess url
@@ -153,8 +153,8 @@ class UserStoresController(object):
 
         # Process optional query parameters
         query_builder = APIHelper.append_url_with_query_parameters(query_builder, {
-            "client_id": self.__clientId,
-            "client_secret": self.__clientSecret
+            "client_id": self.__client_id,
+            "client_secret": self.__client_secret
         })
 
         # Validate and preprocess url
@@ -244,8 +244,8 @@ class UserStoresController(object):
 
         # Process optional query parameters
         query_builder = APIHelper.append_url_with_query_parameters(query_builder, {
-            "client_id": self.__clientId,
-            "client_secret": self.__clientSecret
+            "client_id": self.__client_id,
+            "client_secret": self.__client_secret
         })
 
         # Validate and preprocess url
@@ -318,8 +318,8 @@ class UserStoresController(object):
 
         # Process optional query parameters
         query_builder = APIHelper.append_url_with_query_parameters(query_builder, {
-            "client_id": self.__clientId,
-            "client_secret": self.__clientSecret
+            "client_id": self.__client_id,
+            "client_secret": self.__client_secret
         })
 
         # Validate and preprocess url
@@ -396,8 +396,8 @@ class UserStoresController(object):
 
         # Process optional query parameters
         query_builder = APIHelper.append_url_with_query_parameters(query_builder, {
-            "client_id": self.__clientId,
-            "client_secret": self.__clientSecret
+            "client_id": self.__client_id,
+            "client_secret": self.__client_secret
         })
 
         # Validate and preprocess url

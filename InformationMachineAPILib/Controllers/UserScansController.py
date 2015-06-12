@@ -19,8 +19,8 @@ class UserScansController(object):
         """
         Constructor with authentication and configuration parameters
         """
-        self.__clientId = client_id
-        self.__clientSecret = client_secret
+        self.__client_id = client_id
+        self.__client_secret = client_secret
 
     def user_scans_upload_barcode(self,
                                   payload,
@@ -60,8 +60,8 @@ class UserScansController(object):
 
         # Process optional query parameters
         query_builder = APIHelper.append_url_with_query_parameters(query_builder, {
-            "client_id": self.__clientId,
-            "client_secret": self.__clientSecret
+            "client_id": self.__client_id,
+            "client_secret": self.__client_secret
         })
 
         # Validate and preprocess url
@@ -140,8 +140,8 @@ class UserScansController(object):
 
         # Process optional query parameters
         query_builder = APIHelper.append_url_with_query_parameters(query_builder, {
-            "client_id": self.__clientId,
-            "client_secret": self.__clientSecret
+            "client_id": self.__client_id,
+            "client_secret": self.__client_secret
         })
 
         # Validate and preprocess url

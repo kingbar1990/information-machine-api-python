@@ -9,9 +9,9 @@ class Configuration :
     BASEURI = "https://api.iamdata.co"
 
     # Id of your app
-    CLIENT_ID = "";
+    client_id = "";
 
     # Secret key which authorizes you to use this API
-    CLIENT_SECRET = "";
+    client_secret = "";
 
 

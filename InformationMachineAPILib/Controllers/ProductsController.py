@@ -23,8 +23,8 @@ class ProductsController(object):
         """
         Constructor with authentication and configuration parameters
         """
-        self.__clientId = client_id
-        self.__clientSecret = client_secret
+        self.__client_id = client_id
+        self.__client_secret = client_secret
 
     def products_search_products(self,
                                  name=None,
@@ -73,8 +73,8 @@ class ProductsController(object):
             "per_page": per_page,
             "request_data": request_data,
             "full_resp": full_resp,
-            "client_id": self.__clientId,
-            "client_secret": self.__clientSecret
+            "client_id": self.__client_id,
+            "client_secret": self.__client_secret
         })
 
         # Validate and preprocess url
@@ -145,8 +145,8 @@ class ProductsController(object):
         # Process optional query parameters
         query_builder = APIHelper.append_url_with_query_parameters(query_builder, {
             "full_resp": full_resp,
-            "client_id": self.__clientId,
-            "client_secret": self.__clientSecret
+            "client_id": self.__client_id,
+            "client_secret": self.__client_secret
         })
 
         # Validate and preprocess url
@@ -219,8 +219,8 @@ class ProductsController(object):
         query_builder = APIHelper.append_url_with_query_parameters(query_builder, {
             "page": page,
             "per_page": per_page,
-            "client_id": self.__clientId,
-            "client_secret": self.__clientSecret
+            "client_id": self.__client_id,
+            "client_secret": self.__client_secret
         })
 
         # Validate and preprocess url
@@ -284,8 +284,8 @@ class ProductsController(object):
         # Process optional query parameters
         query_builder = APIHelper.append_url_with_query_parameters(query_builder, {
             "product_ids": product_ids,
-            "client_id": self.__clientId,
-            "client_secret": self.__clientSecret
+            "client_id": self.__client_id,
+            "client_secret": self.__client_secret
         })
 
         # Validate and preprocess url
@@ -355,8 +355,8 @@ class ProductsController(object):
         query_builder = APIHelper.append_url_with_query_parameters(query_builder, {
             "product_ids": product_ids,
             "type_id": type_id,
-            "client_id": self.__clientId,
-            "client_secret": self.__clientSecret
+            "client_id": self.__client_id,
+            "client_secret": self.__client_secret
         })
 
         # Validate and preprocess url
@@ -440,8 +440,8 @@ class ProductsController(object):
             "per_page": per_page,
             "full_resp": full_resp,
             "food_only": food_only,
-            "client_id": self.__clientId,
-            "client_secret": self.__clientSecret
+            "client_id": self.__client_id,
+            "client_secret": self.__client_secret
         })
 
         # Validate and preprocess url

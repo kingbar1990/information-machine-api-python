@@ -11,7 +11,7 @@ class APITestException(Exception):
 def wait_for_scrape_to_finish (user_stores_controller, user_identifier, store_id):
 
     # try to see if the users credentials are valid
-    for i in range(0, 60):
+    for i in range(0, 120):
         connected_store = user_stores_controller.user_stores_get_single_store(user_identifier, store_id);
 
         if (connected_store is not None and connected_store.result.scrape_status == "Done"):
@@ -110,7 +110,7 @@ def test_user_purchase (products_controller, client_id, client_secret, store_id,
     if (user_products.__len__() == 0):
         raise APITestException("Error: get user products")
 
-    user_purchases = user_purchases_controller.user_purchases_get_all_user_purchases(user_id, 1, 15, True).result;
+    user_purchases = user_purchases_controller.user_purchases_get_all_user_purchases(user_id, 1, 15, None, None, None, None, True).result;
     if (user_purchases.__len__() == 0):
         raise APITestException("Error: get all user purchases")
 

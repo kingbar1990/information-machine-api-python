@@ -23,6 +23,8 @@ class UserPurchase(object):
         total_without_tax (double): TODO: type description here.
         tax (double): TODO: type description here.
         order_number (string): TODO: type description here.
+        receipt_id (string): TODO: type description here.
+        receipt_image_url (string): TODO: type description here.
 
     """
 
@@ -44,6 +46,8 @@ class UserPurchase(object):
                     total_without_tax -- double -- Sets the attribute total_without_tax
                     tax -- double -- Sets the attribute tax
                     order_number -- string -- Sets the attribute order_number
+                    receipt_id -- string -- Sets the attribute receipt_id
+                    receipt_image_url -- string -- Sets the attribute receipt_image_url
         
         """
         # Set all of the parameters to their default values
@@ -55,6 +59,8 @@ class UserPurchase(object):
         self.total_without_tax = None
         self.tax = None
         self.order_number = None
+        self.receipt_id = None
+        self.receipt_image_url = None
 
         # Create a mapping from API property names to Model property names
         replace_names = {
@@ -66,6 +72,8 @@ class UserPurchase(object):
             "total_without_tax": "total_without_tax",
             "tax": "tax",
             "order_number": "order_number",
+            "receipt_id": "receipt_id",
+            "receipt_image_url": "receipt_image_url",
         }
 
         # Parse all of the Key-Value arguments
@@ -108,6 +116,8 @@ class UserPurchase(object):
             "total_without_tax": "total_without_tax",
             "tax": "tax",
             "order_number": "order_number",
+            "receipt_id": "receipt_id",
+            "receipt_image_url": "receipt_image_url",
         }
 
         retval = dict()
