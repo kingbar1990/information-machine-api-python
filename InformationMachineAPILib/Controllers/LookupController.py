@@ -43,7 +43,7 @@ class LookupController(object):
 
         """
         # The base uri for api requests
-        query_builder = Configuration.BASEURI
+        query_builder = Configuration.BASE_URI
  
         # Prepare query string for API call
         query_builder += "/v1/product_alternative_types"
@@ -102,7 +102,7 @@ class LookupController(object):
 
         """
         # The base uri for api requests
-        query_builder = Configuration.BASEURI
+        query_builder = Configuration.BASE_URI
  
         # Prepare query string for API call
         query_builder += "/v1/units_of_measurement"
@@ -162,7 +162,7 @@ class LookupController(object):
 
         """
         # The base uri for api requests
-        query_builder = Configuration.BASEURI
+        query_builder = Configuration.BASE_URI
  
         # Prepare query string for API call
         query_builder += "/v1/categories"
@@ -221,7 +221,7 @@ class LookupController(object):
 
         """
         # The base uri for api requests
-        query_builder = Configuration.BASEURI
+        query_builder = Configuration.BASE_URI
  
         # Prepare query string for API call
         query_builder += "/v1/nutrients"
@@ -283,7 +283,7 @@ class LookupController(object):
 
         """
         # The base uri for api requests
-        query_builder = Configuration.BASEURI
+        query_builder = Configuration.BASE_URI
  
         # Prepare query string for API call
         query_builder += "/v1/stores"
@@ -341,7 +341,7 @@ class LookupController(object):
 
         """
         # The base uri for api requests
-        query_builder = Configuration.BASEURI
+        query_builder = Configuration.BASE_URI
  
         # Prepare query string for API call
         query_builder += "/v1/tags"

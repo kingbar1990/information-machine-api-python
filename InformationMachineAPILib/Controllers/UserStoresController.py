@@ -59,7 +59,7 @@ class UserStoresController(object):
 
         """
         # The base uri for api requests
-        query_builder = Configuration.BASEURI
+        query_builder = Configuration.BASE_URI
  
         # Prepare query string for API call
         query_builder += "/v1/users/{user_id}/stores"
@@ -141,7 +141,7 @@ class UserStoresController(object):
 
         """
         # The base uri for api requests
-        query_builder = Configuration.BASEURI
+        query_builder = Configuration.BASE_URI
  
         # Prepare query string for API call
         query_builder += "/v1/users/{user_id}/stores"
@@ -231,7 +231,7 @@ class UserStoresController(object):
 
         """
         # The base uri for api requests
-        query_builder = Configuration.BASEURI
+        query_builder = Configuration.BASE_URI
  
         # Prepare query string for API call
         query_builder += "/v1/users/{user_id}/stores/{id}"
@@ -305,7 +305,7 @@ class UserStoresController(object):
 
         """
         # The base uri for api requests
-        query_builder = Configuration.BASEURI
+        query_builder = Configuration.BASE_URI
  
         # Prepare query string for API call
         query_builder += "/v1/users/{user_id}/stores/{id}"
@@ -383,7 +383,7 @@ class UserStoresController(object):
 
         """
         # The base uri for api requests
-        query_builder = Configuration.BASEURI
+        query_builder = Configuration.BASE_URI
  
         # Prepare query string for API call
         query_builder += "/v1/users/{user_id}/stores/{id}"

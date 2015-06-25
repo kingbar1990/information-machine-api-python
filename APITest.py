@@ -110,7 +110,7 @@ def test_user_purchase (products_controller, client_id, client_secret, store_id,
     if (user_products.__len__() == 0):
         raise APITestException("Error: get user products")
 
-    user_purchases = user_purchases_controller.user_purchases_get_all_user_purchases(user_id, 1, 15, None, None, None, None, True).result;
+    user_purchases = user_purchases_controller.user_purchases_get_all_user_purchases(user_id, 1, 15, None, None, None, None, None, None, None, None, True, None, None).result;
     if (user_purchases.__len__() == 0):
         raise APITestException("Error: get all user purchases")
 

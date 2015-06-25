@@ -46,7 +46,7 @@ class UserManagementController(object):
 
         """
         # The base uri for api requests
-        query_builder = Configuration.BASEURI
+        query_builder = Configuration.BASE_URI
  
         # Prepare query string for API call
         query_builder += "/v1/users"
@@ -114,7 +114,7 @@ class UserManagementController(object):
 
         """
         # The base uri for api requests
-        query_builder = Configuration.BASEURI
+        query_builder = Configuration.BASE_URI
  
         # Prepare query string for API call
         query_builder += "/v1/users"
@@ -187,7 +187,7 @@ class UserManagementController(object):
 
         """
         # The base uri for api requests
-        query_builder = Configuration.BASEURI
+        query_builder = Configuration.BASE_URI
  
         # Prepare query string for API call
         query_builder += "/v1/users"
@@ -250,7 +250,7 @@ class UserManagementController(object):
 
         """
         # The base uri for api requests
-        query_builder = Configuration.BASEURI
+        query_builder = Configuration.BASE_URI
  
         # Prepare query string for API call
         query_builder += "/v1/users/{id}"
@@ -280,11 +280,11 @@ class UserManagementController(object):
         response = unirest.get(query_url, headers=headers)
 
         # Error handling using HTTP status codes
-        if response.code == 400:
-            raise APIException("Bad request", 400, response.body)
-
-        elif response.code == 401:
+        if response.code == 401:
             raise APIException("Unauthorized", 401, response.body)
+
+        elif response.code == 404:
+            raise APIException("Not Found", 404, response.body)
 
         elif response.code < 200 or response.code > 206:  # 200 = HTTP OK
             raise APIException("HTTP Response Not OK", response.code, response.body)

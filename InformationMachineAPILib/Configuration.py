@@ -6,7 +6,7 @@
 
 class Configuration :
     # The base Uri for API calls
-    BASEURI = "https://api.iamdata.co"
+    BASE_URI = "https://api.iamdata.co"
 
     # Id of your app
     client_id = "";
