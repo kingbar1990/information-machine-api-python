@@ -12,7 +12,7 @@ class MetaBase(object):
     TODO: type model description here.
 
     Attributes:
-        max_number_of_requests_per_minute (int): TODO: type description here.
+        max_number_of_requests_per_day (int): TODO: type description here.
         remaining_number_of_request (int): TODO: type description here.
         time_in_epoch_second_till_reset (double): TODO: type description
             here.
@@ -29,19 +29,19 @@ class MetaBase(object):
                 be set through the **kwargs of the constructor. The values
                 that can be supplied and their types are as follows::
 
-                    max_number_of_requests_per_minute -- int -- Sets the attribute max_number_of_requests_per_minute
+                    max_number_of_requests_per_day -- int -- Sets the attribute max_number_of_requests_per_day
                     remaining_number_of_request -- int -- Sets the attribute remaining_number_of_request
                     time_in_epoch_second_till_reset -- double -- Sets the attribute time_in_epoch_second_till_reset
         
         """
         # Set all of the parameters to their default values
-        self.max_number_of_requests_per_minute = None
+        self.max_number_of_requests_per_day = None
         self.remaining_number_of_request = None
         self.time_in_epoch_second_till_reset = None
 
         # Create a mapping from API property names to Model property names
         replace_names = {
-            "max_number_of_requests_per_minute": "max_number_of_requests_per_minute",
+            "max_number_of_requests_per_day": "max_number_of_requests_per_day",
             "remaining_number_of_request": "remaining_number_of_request",
             "time_in_epoch_second_till_reset": "time_in_epoch_second_till_reset",
         }
@@ -67,7 +67,7 @@ class MetaBase(object):
         """
         # Create a mapping from Model property names to API property names
         replace_names = {
-            "max_number_of_requests_per_minute": "max_number_of_requests_per_minute",
+            "max_number_of_requests_per_day": "max_number_of_requests_per_day",
             "remaining_number_of_request": "remaining_number_of_request",
             "time_in_epoch_second_till_reset": "time_in_epoch_second_till_reset",
         }

@@ -11,11 +11,15 @@ from InformationMachineAPILib.APIException import APIException
 from InformationMachineAPILib.Models.UploadBarcodeWrapper import UploadBarcodeWrapper
 from InformationMachineAPILib.Models.UploadReceiptWrapper import UploadReceiptWrapper
 
+
 class UserScansController(object):
+
 
     """A Controller to access Endpoints in the InformationMachineAPILib API."""
 
-    def __init__(self, client_id, client_secret):
+    def __init__(self,
+                 client_id,
+                 client_secret):
         """
         Constructor with authentication and configuration parameters
         """
@@ -73,7 +77,6 @@ class UserScansController(object):
             "accept": "application/json",
             "content-type": "application/json; charset=utf-8"
         }
-
 
         # Prepare and invoke the API call request to fetch the response
         if payload is not None and hasattr(payload, "resolve_names") and callable(getattr(payload, "resolve_names")):
@@ -153,7 +156,6 @@ class UserScansController(object):
             "accept": "application/json",
             "content-type": "application/json; charset=utf-8"
         }
-
 
         # Prepare and invoke the API call request to fetch the response
         if payload is not None and hasattr(payload, "resolve_names") and callable(getattr(payload, "resolve_names")):

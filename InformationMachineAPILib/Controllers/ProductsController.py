@@ -15,11 +15,15 @@ from InformationMachineAPILib.Models.GetProductPricesWrapper import GetProductPr
 from InformationMachineAPILib.Models.GetProductsAlternativesWrapper import GetProductsAlternativesWrapper
 from InformationMachineAPILib.Models.GetUserProducts import GetUserProducts
 
+
 class ProductsController(object):
+
 
     """A Controller to access Endpoints in the InformationMachineAPILib API."""
 
-    def __init__(self, client_id, client_secret):
+    def __init__(self,
+                 client_id,
+                 client_secret):
         """
         Constructor with authentication and configuration parameters
         """
@@ -85,7 +89,6 @@ class ProductsController(object):
             "user-agent": "IAMDATA V1",
             "accept": "application/json"
         }
-
 
         # Prepare and invoke the API call request to fetch the response
         response = unirest.get(query_url, headers=headers)
@@ -157,7 +160,6 @@ class ProductsController(object):
             "user-agent": "IAMDATA V1",
             "accept": "application/json"
         }
-
 
         # Prepare and invoke the API call request to fetch the response
         response = unirest.get(query_url, headers=headers)
@@ -232,7 +234,6 @@ class ProductsController(object):
             "accept": "application/json"
         }
 
-
         # Prepare and invoke the API call request to fetch the response
         response = unirest.get(query_url, headers=headers)
 
@@ -296,7 +297,6 @@ class ProductsController(object):
             "user-agent": "IAMDATA V1",
             "accept": "application/json"
         }
-
 
         # Prepare and invoke the API call request to fetch the response
         response = unirest.get(query_url, headers=headers)
@@ -367,7 +367,6 @@ class ProductsController(object):
             "user-agent": "IAMDATA V1",
             "accept": "application/json"
         }
-
 
         # Prepare and invoke the API call request to fetch the response
         response = unirest.get(query_url, headers=headers)
@@ -452,7 +451,6 @@ class ProductsController(object):
             "user-agent": "IAMDATA V1",
             "accept": "application/json"
         }
-
 
         # Prepare and invoke the API call request to fetch the response
         response = unirest.get(query_url, headers=headers)

@@ -17,7 +17,7 @@ class MetaPaged(object):
         total_count (int): TODO: type description here.
         next_page (string): TODO: type description here.
         last_page (string): TODO: type description here.
-        max_number_of_requests_per_minute (int): TODO: type description here.
+        max_number_of_requests_per_day (int): TODO: type description here.
         remaining_number_of_request (int): TODO: type description here.
         time_in_epoch_second_till_reset (double): TODO: type description
             here.
@@ -39,7 +39,7 @@ class MetaPaged(object):
                     total_count -- int -- Sets the attribute total_count
                     next_page -- string -- Sets the attribute next_page
                     last_page -- string -- Sets the attribute last_page
-                    max_number_of_requests_per_minute -- int -- Sets the attribute max_number_of_requests_per_minute
+                    max_number_of_requests_per_day -- int -- Sets the attribute max_number_of_requests_per_day
                     remaining_number_of_request -- int -- Sets the attribute remaining_number_of_request
                     time_in_epoch_second_till_reset -- double -- Sets the attribute time_in_epoch_second_till_reset
         
@@ -50,7 +50,7 @@ class MetaPaged(object):
         self.total_count = None
         self.next_page = None
         self.last_page = None
-        self.max_number_of_requests_per_minute = None
+        self.max_number_of_requests_per_day = None
         self.remaining_number_of_request = None
         self.time_in_epoch_second_till_reset = None
 
@@ -61,7 +61,7 @@ class MetaPaged(object):
             "total_count": "total_count",
             "next_page": "next_page",
             "last_page": "last_page",
-            "max_number_of_requests_per_minute": "max_number_of_requests_per_minute",
+            "max_number_of_requests_per_day": "max_number_of_requests_per_day",
             "remaining_number_of_request": "remaining_number_of_request",
             "time_in_epoch_second_till_reset": "time_in_epoch_second_till_reset",
         }
@@ -92,7 +92,7 @@ class MetaPaged(object):
             "total_count": "total_count",
             "next_page": "next_page",
             "last_page": "last_page",
-            "max_number_of_requests_per_minute": "max_number_of_requests_per_minute",
+            "max_number_of_requests_per_day": "max_number_of_requests_per_day",
             "remaining_number_of_request": "remaining_number_of_request",
             "time_in_epoch_second_till_reset": "time_in_epoch_second_till_reset",
         }

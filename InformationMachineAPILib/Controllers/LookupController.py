@@ -15,11 +15,15 @@ from InformationMachineAPILib.Models.GetNutrientsWrapper import GetNutrientsWrap
 from InformationMachineAPILib.Models.GetStoresWrapper import GetStoresWrapper
 from InformationMachineAPILib.Models.GetTagsWrapper import GetTagsWrapper
 
+
 class LookupController(object):
+
 
     """A Controller to access Endpoints in the InformationMachineAPILib API."""
 
-    def __init__(self, client_id, client_secret):
+    def __init__(self,
+                 client_id,
+                 client_secret):
         """
         Constructor with authentication and configuration parameters
         """
@@ -62,7 +66,6 @@ class LookupController(object):
             "user-agent": "IAMDATA V1",
             "accept": "application/json"
         }
-
 
         # Prepare and invoke the API call request to fetch the response
         response = unirest.get(query_url, headers=headers)
@@ -121,7 +124,6 @@ class LookupController(object):
             "user-agent": "IAMDATA V1",
             "accept": "application/json"
         }
-
 
         # Prepare and invoke the API call request to fetch the response
         response = unirest.get(query_url, headers=headers)
@@ -182,7 +184,6 @@ class LookupController(object):
             "accept": "application/json"
         }
 
-
         # Prepare and invoke the API call request to fetch the response
         response = unirest.get(query_url, headers=headers)
 
@@ -240,7 +241,6 @@ class LookupController(object):
             "user-agent": "IAMDATA V1",
             "accept": "application/json"
         }
-
 
         # Prepare and invoke the API call request to fetch the response
         response = unirest.get(query_url, headers=headers)
@@ -303,7 +303,6 @@ class LookupController(object):
             "accept": "application/json"
         }
 
-
         # Prepare and invoke the API call request to fetch the response
         response = unirest.get(query_url, headers=headers)
 
@@ -360,7 +359,6 @@ class LookupController(object):
             "user-agent": "IAMDATA V1",
             "accept": "application/json"
         }
-
 
         # Prepare and invoke the API call request to fetch the response
         response = unirest.get(query_url, headers=headers)

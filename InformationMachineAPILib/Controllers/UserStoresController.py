@@ -14,11 +14,15 @@ from InformationMachineAPILib.Models.GetSingleStoresWrapper import GetSingleStor
 from InformationMachineAPILib.Models.UpdateStoreConnectionWrapper import UpdateStoreConnectionWrapper
 from InformationMachineAPILib.Models.DeleteSingleStoreWrapper import DeleteSingleStoreWrapper
 
+
 class UserStoresController(object):
+
 
     """A Controller to access Endpoints in the InformationMachineAPILib API."""
 
-    def __init__(self, client_id, client_secret):
+    def __init__(self,
+                 client_id,
+                 client_secret):
         """
         Constructor with authentication and configuration parameters
         """
@@ -85,7 +89,6 @@ class UserStoresController(object):
             "user-agent": "IAMDATA V1",
             "accept": "application/json"
         }
-
 
         # Prepare and invoke the API call request to fetch the response
         response = unirest.get(query_url, headers=headers)
@@ -167,7 +170,6 @@ class UserStoresController(object):
             "content-type": "application/json; charset=utf-8"
         }
 
-
         # Prepare and invoke the API call request to fetch the response
         if payload is not None and hasattr(payload, "resolve_names") and callable(getattr(payload, "resolve_names")):
             payload = payload.resolve_names()
@@ -186,6 +188,9 @@ class UserStoresController(object):
 
         elif response.code == 500:
             raise APIException("Internal Server Error", 500, response.body)
+
+        elif response.code == 422:
+            raise APIException("Unprocessable entity", 422, response.body)
 
         elif response.code < 200 or response.code > 206:  # 200 = HTTP OK
             raise APIException("HTTP Response Not OK", response.code, response.body)
@@ -256,7 +261,6 @@ class UserStoresController(object):
             "user-agent": "IAMDATA V1",
             "accept": "application/json"
         }
-
 
         # Prepare and invoke the API call request to fetch the response
         response = unirest.get(query_url, headers=headers)
@@ -331,7 +335,6 @@ class UserStoresController(object):
             "accept": "application/json",
             "content-type": "application/json; charset=utf-8"
         }
-
 
         # Prepare and invoke the API call request to fetch the response
         if payload is not None and hasattr(payload, "resolve_names") and callable(getattr(payload, "resolve_names")):
@@ -408,7 +411,6 @@ class UserStoresController(object):
             "user-agent": "IAMDATA V1",
             "accept": "application/json"
         }
-
 
         # Prepare and invoke the API call request to fetch the response
         response = unirest.delete(query_url, headers=headers)
