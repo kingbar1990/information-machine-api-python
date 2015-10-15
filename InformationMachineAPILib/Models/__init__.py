@@ -50,6 +50,9 @@ from UserStore import *
 from PurchaseItemData import *
 from PurchaseItemProduct import *
 from GetSingleUserPurchaseWrapper import *
+from GetAllUserLoyaltyPurchasesWrapper import *
+from UserLoyaltyPurchase import *
+from LoyaltyPurchaseItemData import *
 from UploadBarcodeRequest import *
 from UploadBarcodeWrapper import *
 from UploadBarcodeResponse import *

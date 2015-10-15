@@ -19,6 +19,7 @@ class GetSingleUserStoreResponse(object):
         username (string): TODO: type description here.
         credentials_status (string): TODO: type description here.
         scrape_status (string): TODO: type description here.
+        mtype (string): TODO: type description here.
         created_at (string): TODO: type description here.
         updated_at (string): TODO: type description here.
 
@@ -40,6 +41,7 @@ class GetSingleUserStoreResponse(object):
                     username -- string -- Sets the attribute username
                     credentials_status -- string -- Sets the attribute credentials_status
                     scrape_status -- string -- Sets the attribute scrape_status
+                    type -- string -- Sets the attribute mtype
                     created_at -- string -- Sets the attribute created_at
                     updated_at -- string -- Sets the attribute updated_at
         
@@ -51,6 +53,7 @@ class GetSingleUserStoreResponse(object):
         self.username = None
         self.credentials_status = None
         self.scrape_status = None
+        self.mtype = None
         self.created_at = None
         self.updated_at = None
 
@@ -62,6 +65,7 @@ class GetSingleUserStoreResponse(object):
             "username": "username",
             "credentials_status": "credentials_status",
             "scrape_status": "scrape_status",
+            "type": "mtype",
             "created_at": "created_at",
             "updated_at": "updated_at",
         }
@@ -97,6 +101,7 @@ class GetSingleUserStoreResponse(object):
             "username": "username",
             "credentials_status": "credentials_status",
             "scrape_status": "scrape_status",
+            "mtype": "type",
             "created_at": "created_at",
             "updated_at": "updated_at",
         }

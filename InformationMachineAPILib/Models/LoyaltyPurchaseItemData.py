@@ -1,25 +1,20 @@
 """
-   InformationMachineAPILib.Models.PurchaseItemData
+   InformationMachineAPILib.Models.LoyaltyPurchaseItemData
  
    
 """
 from InformationMachineAPILib.APIHelper import APIHelper
 from InformationMachineAPILib.Models.PurchaseItemProduct import PurchaseItemProduct
 
-class PurchaseItemData(object):
+class LoyaltyPurchaseItemData(object):
 
-    """Implementation of the 'PurchaseItemData' model.
+    """Implementation of the 'LoyaltyPurchaseItemData' model.
 
     TODO: type model description here.
 
     Attributes:
         id (int): TODO: type description here.
-        purchase_id (int): TODO: type description here.
         name (string): TODO: type description here.
-        quantity (double): TODO: type description here.
-        price (double): TODO: type description here.
-        discounted_price (double): TODO: type description here.
-        unit_of_measurement (string): TODO: type description here.
         upc (string): TODO: type description here.
         upc_resolved_at (string): TODO: type description here.
         product (PurchaseItemProduct): TODO: type description here.
@@ -28,7 +23,7 @@ class PurchaseItemData(object):
 
     def __init__(self,
                  **kwargs):
-        """Constructor for the PurchaseItemData class
+        """Constructor for the LoyaltyPurchaseItemData class
         
         Args:
             **kwargs: Keyword Arguments in order to initialise the
@@ -37,12 +32,7 @@ class PurchaseItemData(object):
                 that can be supplied and their types are as follows::
 
                     id -- int -- Sets the attribute id
-                    purchase_id -- int -- Sets the attribute purchase_id
                     name -- string -- Sets the attribute name
-                    quantity -- double -- Sets the attribute quantity
-                    price -- double -- Sets the attribute price
-                    discounted_price -- double -- Sets the attribute discounted_price
-                    unit_of_measurement -- string -- Sets the attribute unit_of_measurement
                     upc -- string -- Sets the attribute upc
                     upc_resolved_at -- string -- Sets the attribute upc_resolved_at
                     product -- PurchaseItemProduct -- Sets the attribute product
@@ -50,12 +40,7 @@ class PurchaseItemData(object):
         """
         # Set all of the parameters to their default values
         self.id = None
-        self.purchase_id = None
         self.name = None
-        self.quantity = None
-        self.price = None
-        self.discounted_price = None
-        self.unit_of_measurement = None
         self.upc = None
         self.upc_resolved_at = None
         self.product = None
@@ -63,12 +48,7 @@ class PurchaseItemData(object):
         # Create a mapping from API property names to Model property names
         replace_names = {
             "id": "id",
-            "purchase_id": "purchase_id",
             "name": "name",
-            "quantity": "quantity",
-            "price": "price",
-            "discounted_price": "discounted_price",
-            "unit_of_measurement": "unit_of_measurement",
             "upc": "upc",
             "upc_resolved_at": "upc_resolved_at",
             "product": "product",
@@ -100,12 +80,7 @@ class PurchaseItemData(object):
         # Create a mapping from Model property names to API property names
         replace_names = {
             "id": "id",
-            "purchase_id": "purchase_id",
             "name": "name",
-            "quantity": "quantity",
-            "price": "price",
-            "discounted_price": "discounted_price",
-            "unit_of_measurement": "unit_of_measurement",
             "upc": "upc",
             "upc_resolved_at": "upc_resolved_at",
             "product": "product",

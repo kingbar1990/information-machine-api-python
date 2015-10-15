@@ -189,7 +189,7 @@ class UserCartsController(object):
 
         Args:
             user_id (string): ID of a user
-            cart_id (string): ID if a cart
+            cart_id (string): ID of a cart
 
         Returns:
             GetCartWrapper: Response from the API. OK
@@ -262,7 +262,7 @@ class UserCartsController(object):
 
         Args:
             user_id (string): ID of a user
-            cart_id (string): ID if a cart
+            cart_id (string): ID of a cart
             payload (AddCartItemRequest): TODO: type description here.
 
         Returns:
@@ -343,7 +343,7 @@ class UserCartsController(object):
 
         Args:
             user_id (string): ID of a user
-            cart_id (string): ID if a cart
+            cart_id (string): ID of a cart
 
         Returns:
             DeleteCartWrapper: Response from the API. OK
@@ -416,8 +416,8 @@ class UserCartsController(object):
 
         Args:
             user_id (string): ID of a user
-            cart_id (string): ID if a cart
-            cart_item_id (string): ID if a cart item
+            cart_id (string): ID of a cart
+            cart_item_id (string): ID of a cart item
 
         Returns:
             DeleteCartItemWrapper: Response from the API. OK
@@ -487,12 +487,12 @@ class UserCartsController(object):
                                 store_id):
         """Does a GET request to /users/{user_id}/carts/{cart_id}/stores/{store_id}.
 
-        TODO: type endpoint description here.
+        Currently, only Amazon cart is supported.
 
         Args:
             user_id (string): ID of a user
-            cart_id (string): ID if a cart
-            store_id (int): ID if a store (check "Lookup" section, "v1/stores"
+            cart_id (string): ID of a cart
+            store_id (int): ID of a store (check "Lookup" section, "v1/stores"
                 endpoint)
 
         Returns:

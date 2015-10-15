@@ -118,7 +118,9 @@ class UserStoresController(object):
 
         Connect a user's store by specifying the user ID ("user_id"), store ID
         ("store_id") and user's credentials for specified store ("username"
-        and "password"). Note: Within response you should focus on the
+        and "password"). You can find store IDs in Lookup/Stores section above
+        or in this <a href="http://api.iamdata.co/docs/storeids"
+        target="blank">LINK</a>. Note: Within response you should focus on the
         following properties: "scrape_status" and "credentials_status".
         Possible values for "scrape_status": "Not defined""Pending" -
         (scraping request is in queue and waiting to be processed)"Scraping" -
@@ -189,9 +191,6 @@ class UserStoresController(object):
         elif response.code == 500:
             raise APIException("Internal Server Error", 500, response.body)
 
-        elif response.code == 422:
-            raise APIException("Unprocessable entity", 422, response.body)
-
         elif response.code < 200 or response.code > 206:  # 200 = HTTP OK
             raise APIException("HTTP Response Not OK", response.code, response.body)
         
@@ -209,8 +208,8 @@ class UserStoresController(object):
         """Does a GET request to /v1/users/{user_id}/stores/{id}.
 
         Get single store connection by specifying user ("user_id") and store
-        connection ID ("user_store_id" - generated upon successful store
-        connection). Note: Within response focus on the following properties:
+        connection ID ("id" - generated upon successful store connection).
+        Note: Within response focus on the following properties:
         "scrape_status" and "credentials_status". Possible values for
         "scrape_status": "Not defined""Pending" - (scraping request is in
         queue and waiting to be processed)"Scraping" - (scraping is in
