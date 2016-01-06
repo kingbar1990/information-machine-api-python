@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 """
    InformationMachineAPILib.Controllers.LookupController
 
@@ -53,10 +55,11 @@ class LookupController(object):
         query_builder += "/v1/product_alternative_types"
 
         # Process optional query parameters
-        query_builder = APIHelper.append_url_with_query_parameters(query_builder, {
+        query_parameters = {
             "client_id": self.__client_id,
             "client_secret": self.__client_secret
-        })
+        }
+        query_builder = APIHelper.append_url_with_query_parameters(query_builder, query_parameters)
 
         # Validate and preprocess url
         query_url = APIHelper.clean_url(query_builder)
@@ -111,10 +114,11 @@ class LookupController(object):
         query_builder += "/v1/units_of_measurement"
 
         # Process optional query parameters
-        query_builder = APIHelper.append_url_with_query_parameters(query_builder, {
+        query_parameters = {
             "client_id": self.__client_id,
             "client_secret": self.__client_secret
-        })
+        }
+        query_builder = APIHelper.append_url_with_query_parameters(query_builder, query_parameters)
 
         # Validate and preprocess url
         query_url = APIHelper.clean_url(query_builder)
@@ -170,10 +174,11 @@ class LookupController(object):
         query_builder += "/v1/categories"
 
         # Process optional query parameters
-        query_builder = APIHelper.append_url_with_query_parameters(query_builder, {
+        query_parameters = {
             "client_id": self.__client_id,
             "client_secret": self.__client_secret
-        })
+        }
+        query_builder = APIHelper.append_url_with_query_parameters(query_builder, query_parameters)
 
         # Validate and preprocess url
         query_url = APIHelper.clean_url(query_builder)
@@ -228,10 +233,11 @@ class LookupController(object):
         query_builder += "/v1/nutrients"
 
         # Process optional query parameters
-        query_builder = APIHelper.append_url_with_query_parameters(query_builder, {
+        query_parameters = {
             "client_id": self.__client_id,
             "client_secret": self.__client_secret
-        })
+        }
+        query_builder = APIHelper.append_url_with_query_parameters(query_builder, query_parameters)
 
         # Validate and preprocess url
         query_url = APIHelper.clean_url(query_builder)
@@ -289,10 +295,11 @@ class LookupController(object):
         query_builder += "/v1/stores"
 
         # Process optional query parameters
-        query_builder = APIHelper.append_url_with_query_parameters(query_builder, {
+        query_parameters = {
             "client_id": self.__client_id,
             "client_secret": self.__client_secret
-        })
+        }
+        query_builder = APIHelper.append_url_with_query_parameters(query_builder, query_parameters)
 
         # Validate and preprocess url
         query_url = APIHelper.clean_url(query_builder)
@@ -346,10 +353,11 @@ class LookupController(object):
         query_builder += "/v1/tags"
 
         # Process optional query parameters
-        query_builder = APIHelper.append_url_with_query_parameters(query_builder, {
+        query_parameters = {
             "client_id": self.__client_id,
             "client_secret": self.__client_secret
-        })
+        }
+        query_builder = APIHelper.append_url_with_query_parameters(query_builder, query_parameters)
 
         # Validate and preprocess url
         query_url = APIHelper.clean_url(query_builder)

@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 """
    InformationMachineAPILib.APIHelper
 
@@ -30,6 +32,23 @@ class APIHelper:
         """
         if obj is None:
             return None
+
+        # Resolve any Names if it's one of our objects that needs to have this called on
+        if isinstance(obj, list):
+            value = list()
+
+            for item in obj:
+                try:
+                    value.append(item.resolve_names())
+                except (AttributeError, TypeError):
+                    value.append(item)
+
+            obj = value
+        else:
+            try:
+                obj = obj.resolve_names()
+            except (AttributeError, TypeError):
+                obj = obj
 
         return jsonpickle.encode(obj, False)
 
@@ -153,6 +172,44 @@ class APIHelper:
 
         return protocol + query_url
         return query_url
+    
+    @staticmethod
+    def form_encode(obj,
+                    instanceName):
+        """Encodes a model in a form-encoded manner such as person[Name]
+       
+        Args:
+            obj (object): The given Object to form encode.
+            instanceName (string): The base name to appear before each entry
+                for this object.
+            
+        Returns:
+            dict: A dictionary of form encoded properties of the model.
+            
+        """
+        # Resolve the names first
+        value = APIHelper.resolve_name(obj)
+        retval = dict()
+        
+        if value is None:
+            return None
+        
+        # Loop through every item we need to send
+        for item in value:
+            if isinstance(value[item], list):
+                # Loop through each item in the list and add it by number
+                i = 0
+                for entry in value[item]:
+                    retval.update(APIHelper.form_encode(entry, instanceName + "[" + item + "][" + str(i) + "]"))
+                    i += 1
+            elif isinstance(value[item], dict):
+                # Loop through each item in the dictionary and add it
+                retval.update(APIHelper.form_encode(value[item], instanceName + "[" + item + "]"))
+            else:
+                # Add the current item
+                retval[instanceName + "[" + item + "]"] = value[item]
+        
+        return retval
 
     @staticmethod
     def resolve_names(obj,

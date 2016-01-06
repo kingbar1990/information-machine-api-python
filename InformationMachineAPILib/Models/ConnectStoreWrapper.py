@@ -1,10 +1,12 @@
+# -*- coding: utf-8 -*-
+
 """
    InformationMachineAPILib.Models.ConnectStoreWrapper
  
    
 """
 from InformationMachineAPILib.APIHelper import APIHelper
-from InformationMachineAPILib.Models.ConnectUserStoreResponse import ConnectUserStoreResponse
+from InformationMachineAPILib.Models.UserStore import UserStore
 from InformationMachineAPILib.Models.MetaBase import MetaBase
 
 class ConnectStoreWrapper(object):
@@ -14,7 +16,7 @@ class ConnectStoreWrapper(object):
     TODO: type model description here.
 
     Attributes:
-        result (ConnectUserStoreResponse): TODO: type description here.
+        result (UserStore): TODO: type description here.
         meta (MetaBase): TODO: type description here.
 
     """
@@ -29,7 +31,7 @@ class ConnectStoreWrapper(object):
                 be set through the **kwargs of the constructor. The values
                 that can be supplied and their types are as follows::
 
-                    result -- ConnectUserStoreResponse -- Sets the attribute result
+                    result -- UserStore -- Sets the attribute result
                     meta -- MetaBase -- Sets the attribute meta
         
         """
@@ -52,7 +54,7 @@ class ConnectStoreWrapper(object):
 
             # Other objects also need to be initialised properly
             if "result" in kwargs:
-                self.result = ConnectUserStoreResponse(**kwargs["result"])
+                self.result = UserStore(**kwargs["result"])
 
             # Other objects also need to be initialised properly
             if "meta" in kwargs:

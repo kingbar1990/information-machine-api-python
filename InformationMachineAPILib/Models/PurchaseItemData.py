@@ -1,10 +1,12 @@
+# -*- coding: utf-8 -*-
+
 """
    InformationMachineAPILib.Models.PurchaseItemData
  
    
 """
 from InformationMachineAPILib.APIHelper import APIHelper
-from InformationMachineAPILib.Models.PurchaseItemProduct import PurchaseItemProduct
+from InformationMachineAPILib.Models.ProductData import ProductData
 
 class PurchaseItemData(object):
 
@@ -22,7 +24,7 @@ class PurchaseItemData(object):
         unit_of_measurement (string): TODO: type description here.
         upc (string): TODO: type description here.
         upc_resolved_at (string): TODO: type description here.
-        product (PurchaseItemProduct): TODO: type description here.
+        product (ProductData): TODO: type description here.
 
     """
 
@@ -45,7 +47,7 @@ class PurchaseItemData(object):
                     unit_of_measurement -- string -- Sets the attribute unit_of_measurement
                     upc -- string -- Sets the attribute upc
                     upc_resolved_at -- string -- Sets the attribute upc_resolved_at
-                    product -- PurchaseItemProduct -- Sets the attribute product
+                    product -- ProductData -- Sets the attribute product
         
         """
         # Set all of the parameters to their default values
@@ -83,7 +85,7 @@ class PurchaseItemData(object):
 
             # Other objects also need to be initialised properly
             if "product" in kwargs:
-                self.product = PurchaseItemProduct(**kwargs["product"])
+                self.product = ProductData(**kwargs["product"])
 
     def resolve_names(self):
         """Creates a dictionary representation of this object.

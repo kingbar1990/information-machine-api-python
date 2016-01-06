@@ -1,27 +1,29 @@
+# -*- coding: utf-8 -*-
+
 """
-   InformationMachineAPILib.Models.PurchaseItemProduct
+   InformationMachineAPILib.Models.GetUPCsByNameResponseWrapper
  
    
 """
 from InformationMachineAPILib.APIHelper import APIHelper
+from InformationMachineAPILib.Models.NameUpcRecord import NameUpcRecord
+from InformationMachineAPILib.Models.MetaBase import MetaBase
 
-class PurchaseItemProduct(object):
+class GetUPCsByNameResponseWrapper(object):
 
-    """Implementation of the 'PurchaseItemProduct' model.
+    """Implementation of the 'GetUPCsByNameResponseWrapper' model.
 
     TODO: type model description here.
 
     Attributes:
-        id (int): TODO: type description here.
-        name (string): TODO: type description here.
-        upc (string): TODO: type description here.
-        category_id (int): TODO: type description here.
+        result (list of NameUpcRecord): TODO: type description here.
+        meta (MetaBase): TODO: type description here.
 
     """
 
     def __init__(self,
                  **kwargs):
-        """Constructor for the PurchaseItemProduct class
+        """Constructor for the GetUPCsByNameResponseWrapper class
         
         Args:
             **kwargs: Keyword Arguments in order to initialise the
@@ -29,24 +31,18 @@ class PurchaseItemProduct(object):
                 be set through the **kwargs of the constructor. The values
                 that can be supplied and their types are as follows::
 
-                    id -- int -- Sets the attribute id
-                    name -- string -- Sets the attribute name
-                    upc -- string -- Sets the attribute upc
-                    category_id -- int -- Sets the attribute category_id
+                    result -- list of NameUpcRecord -- Sets the attribute result
+                    meta -- MetaBase -- Sets the attribute meta
         
         """
         # Set all of the parameters to their default values
-        self.id = None
-        self.name = None
-        self.upc = None
-        self.category_id = None
+        self.result = None
+        self.meta = None
 
         # Create a mapping from API property names to Model property names
         replace_names = {
-            "id": "id",
-            "name": "name",
-            "upc": "upc",
-            "category_id": "category_id",
+            "result": "result",
+            "meta": "meta",
         }
 
         # Parse all of the Key-Value arguments
@@ -55,6 +51,17 @@ class PurchaseItemProduct(object):
                 # Only add arguments that are actually part of this object
                 if key in replace_names:
                     setattr(self, replace_names[key], kwargs[key])
+
+            # Other objects also need to be initialised properly
+            if "result" in kwargs:
+                # Parameter is an array, so we need to iterate through it
+                self.result = list()
+                for item in kwargs["result"]:
+                    self.result.append(NameUpcRecord(**item))
+
+            # Other objects also need to be initialised properly
+            if "meta" in kwargs:
+                self.meta = MetaBase(**kwargs["meta"])
 
     def resolve_names(self):
         """Creates a dictionary representation of this object.
@@ -70,10 +77,8 @@ class PurchaseItemProduct(object):
         """
         # Create a mapping from Model property names to API property names
         replace_names = {
-            "id": "id",
-            "name": "name",
-            "upc": "upc",
-            "category_id": "category_id",
+            "result": "result",
+            "meta": "meta",
         }
 
         retval = dict()

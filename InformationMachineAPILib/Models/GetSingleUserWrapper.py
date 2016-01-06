@@ -1,10 +1,12 @@
+# -*- coding: utf-8 -*-
+
 """
    InformationMachineAPILib.Models.GetSingleUserWrapper
  
    
 """
 from InformationMachineAPILib.APIHelper import APIHelper
-from InformationMachineAPILib.Models.GetSingleUserResponse import GetSingleUserResponse
+from InformationMachineAPILib.Models.UserData import UserData
 from InformationMachineAPILib.Models.MetaBase import MetaBase
 
 class GetSingleUserWrapper(object):
@@ -14,7 +16,7 @@ class GetSingleUserWrapper(object):
     TODO: type model description here.
 
     Attributes:
-        result (GetSingleUserResponse): TODO: type description here.
+        result (UserData): TODO: type description here.
         meta (MetaBase): TODO: type description here.
 
     """
@@ -29,7 +31,7 @@ class GetSingleUserWrapper(object):
                 be set through the **kwargs of the constructor. The values
                 that can be supplied and their types are as follows::
 
-                    result -- GetSingleUserResponse -- Sets the attribute result
+                    result -- UserData -- Sets the attribute result
                     meta -- MetaBase -- Sets the attribute meta
         
         """
@@ -52,7 +54,7 @@ class GetSingleUserWrapper(object):
 
             # Other objects also need to be initialised properly
             if "result" in kwargs:
-                self.result = GetSingleUserResponse(**kwargs["result"])
+                self.result = UserData(**kwargs["result"])
 
             # Other objects also need to be initialised properly
             if "meta" in kwargs:

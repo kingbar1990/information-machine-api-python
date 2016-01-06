@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 """
    InformationMachineAPILib.Models.ProductData
  
@@ -15,6 +17,7 @@ class ProductData(object):
     Attributes:
         nutrients (list of NutrientData): TODO: type description here.
         recipes (list of string): TODO: type description here.
+        plus (list of string): TODO: type description here.
         visibility_count (int): TODO: type description here.
         score (double): TODO: type description here.
         amazon_link (string): TODO: type description here.
@@ -51,6 +54,7 @@ class ProductData(object):
 
                     nutrients -- list of NutrientData -- Sets the attribute nutrients
                     recipes -- list of string -- Sets the attribute recipes
+                    plus -- list of string -- Sets the attribute plus
                     visibility_count -- int -- Sets the attribute visibility_count
                     score -- double -- Sets the attribute score
                     amazon_link -- string -- Sets the attribute amazon_link
@@ -77,6 +81,7 @@ class ProductData(object):
         # Set all of the parameters to their default values
         self.nutrients = None
         self.recipes = None
+        self.plus = None
         self.visibility_count = None
         self.score = None
         self.amazon_link = None
@@ -103,6 +108,7 @@ class ProductData(object):
         replace_names = {
             "nutrients": "nutrients",
             "recipes": "recipes",
+            "plus": "plus",
             "visibility_count": "visibility_count",
             "score": "score",
             "amazon_link": "amazon_link",
@@ -156,6 +162,7 @@ class ProductData(object):
         replace_names = {
             "nutrients": "nutrients",
             "recipes": "recipes",
+            "plus": "plus",
             "visibility_count": "visibility_count",
             "score": "score",
             "amazon_link": "amazon_link",

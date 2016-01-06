@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 """
    InformationMachineAPILib.Models.MetaPaged
  
@@ -14,7 +16,7 @@ class MetaPaged(object):
     Attributes:
         page (int): TODO: type description here.
         per_page (int): TODO: type description here.
-        total_count (int): TODO: type description here.
+        total_number_of_pages (int): TODO: type description here.
         next_page (string): TODO: type description here.
         last_page (string): TODO: type description here.
         max_number_of_requests_per_day (int): TODO: type description here.
@@ -36,7 +38,7 @@ class MetaPaged(object):
 
                     page -- int -- Sets the attribute page
                     per_page -- int -- Sets the attribute per_page
-                    total_count -- int -- Sets the attribute total_count
+                    total_number_of_pages -- int -- Sets the attribute total_number_of_pages
                     next_page -- string -- Sets the attribute next_page
                     last_page -- string -- Sets the attribute last_page
                     max_number_of_requests_per_day -- int -- Sets the attribute max_number_of_requests_per_day
@@ -47,7 +49,7 @@ class MetaPaged(object):
         # Set all of the parameters to their default values
         self.page = None
         self.per_page = None
-        self.total_count = None
+        self.total_number_of_pages = None
         self.next_page = None
         self.last_page = None
         self.max_number_of_requests_per_day = None
@@ -58,7 +60,7 @@ class MetaPaged(object):
         replace_names = {
             "page": "page",
             "per_page": "per_page",
-            "total_count": "total_count",
+            "total_number_of_pages": "total_number_of_pages",
             "next_page": "next_page",
             "last_page": "last_page",
             "max_number_of_requests_per_day": "max_number_of_requests_per_day",
@@ -89,7 +91,7 @@ class MetaPaged(object):
         replace_names = {
             "page": "page",
             "per_page": "per_page",
-            "total_count": "total_count",
+            "total_number_of_pages": "total_number_of_pages",
             "next_page": "next_page",
             "last_page": "last_page",
             "max_number_of_requests_per_day": "max_number_of_requests_per_day",

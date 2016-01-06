@@ -1,28 +1,29 @@
+# -*- coding: utf-8 -*-
+
 """
-   InformationMachineAPILib.Models.GetSingleUserResponse
+   InformationMachineAPILib.Models.NameUpcRecord
  
    
 """
 from InformationMachineAPILib.APIHelper import APIHelper
 
-class GetSingleUserResponse(object):
+class NameUpcRecord(object):
 
-    """Implementation of the 'GetSingleUserResponse' model.
+    """Implementation of the 'NameUpcRecord' model.
 
     TODO: type model description here.
 
     Attributes:
-        email (string): TODO: type description here.
-        zip (string): TODO: type description here.
-        user_id (string): TODO: type description here.
-        owner_app_id (string): TODO: type description here.
-        created_at (string): TODO: type description here.
+        name (string): TODO: type description here.
+        store (string): TODO: type description here.
+        resolve_status (string): TODO: type description here.
+        upcs (list of string): TODO: type description here.
 
     """
 
     def __init__(self,
                  **kwargs):
-        """Constructor for the GetSingleUserResponse class
+        """Constructor for the NameUpcRecord class
         
         Args:
             **kwargs: Keyword Arguments in order to initialise the
@@ -30,27 +31,24 @@ class GetSingleUserResponse(object):
                 be set through the **kwargs of the constructor. The values
                 that can be supplied and their types are as follows::
 
-                    email -- string -- Sets the attribute email
-                    zip -- string -- Sets the attribute zip
-                    user_id -- string -- Sets the attribute user_id
-                    owner_app_id -- string -- Sets the attribute owner_app_id
-                    created_at -- string -- Sets the attribute created_at
+                    name -- string -- Sets the attribute name
+                    store -- string -- Sets the attribute store
+                    resolve_status -- string -- Sets the attribute resolve_status
+                    upcs -- list of string -- Sets the attribute upcs
         
         """
         # Set all of the parameters to their default values
-        self.email = None
-        self.zip = None
-        self.user_id = None
-        self.owner_app_id = None
-        self.created_at = None
+        self.name = None
+        self.store = None
+        self.resolve_status = None
+        self.upcs = None
 
         # Create a mapping from API property names to Model property names
         replace_names = {
-            "email": "email",
-            "zip": "zip",
-            "user_id": "user_id",
-            "owner_app_id": "owner_app_id",
-            "created_at": "created_at",
+            "name": "name",
+            "store": "store",
+            "resolve_status": "resolve_status",
+            "upcs": "upcs",
         }
 
         # Parse all of the Key-Value arguments
@@ -74,11 +72,10 @@ class GetSingleUserResponse(object):
         """
         # Create a mapping from Model property names to API property names
         replace_names = {
-            "email": "email",
-            "zip": "zip",
-            "user_id": "user_id",
-            "owner_app_id": "owner_app_id",
-            "created_at": "created_at",
+            "name": "name",
+            "store": "store",
+            "resolve_status": "resolve_status",
+            "upcs": "upcs",
         }
 
         retval = dict()

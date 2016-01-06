@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 """
    InformationMachineAPILib.Controllers.UserCartsController
 
@@ -63,10 +65,11 @@ class UserCartsController(object):
         })
 
         # Process optional query parameters
-        query_builder = APIHelper.append_url_with_query_parameters(query_builder, {
+        query_parameters = {
             "client_id": self.__client_id,
             "client_secret": self.__client_secret
-        })
+        }
+        query_builder = APIHelper.append_url_with_query_parameters(query_builder, query_parameters)
 
         # Validate and preprocess url
         query_url = APIHelper.clean_url(query_builder)
@@ -134,10 +137,11 @@ class UserCartsController(object):
         })
 
         # Process optional query parameters
-        query_builder = APIHelper.append_url_with_query_parameters(query_builder, {
+        query_parameters = {
             "client_id": self.__client_id,
             "client_secret": self.__client_secret
-        })
+        }
+        query_builder = APIHelper.append_url_with_query_parameters(query_builder, query_parameters)
 
         # Validate and preprocess url
         query_url = APIHelper.clean_url(query_builder)
@@ -150,9 +154,6 @@ class UserCartsController(object):
         }
 
         # Prepare and invoke the API call request to fetch the response
-        if payload is not None and hasattr(payload, "resolve_names") and callable(getattr(payload, "resolve_names")):
-            payload = payload.resolve_names()
-
         response = unirest.post(query_url, headers=headers,  params=APIHelper.json_serialize(payload))
 
         # Error handling using HTTP status codes
@@ -214,10 +215,11 @@ class UserCartsController(object):
         })
 
         # Process optional query parameters
-        query_builder = APIHelper.append_url_with_query_parameters(query_builder, {
+        query_parameters = {
             "client_id": self.__client_id,
             "client_secret": self.__client_secret
-        })
+        }
+        query_builder = APIHelper.append_url_with_query_parameters(query_builder, query_parameters)
 
         # Validate and preprocess url
         query_url = APIHelper.clean_url(query_builder)
@@ -288,10 +290,11 @@ class UserCartsController(object):
         })
 
         # Process optional query parameters
-        query_builder = APIHelper.append_url_with_query_parameters(query_builder, {
+        query_parameters = {
             "client_id": self.__client_id,
             "client_secret": self.__client_secret
-        })
+        }
+        query_builder = APIHelper.append_url_with_query_parameters(query_builder, query_parameters)
 
         # Validate and preprocess url
         query_url = APIHelper.clean_url(query_builder)
@@ -304,9 +307,6 @@ class UserCartsController(object):
         }
 
         # Prepare and invoke the API call request to fetch the response
-        if payload is not None and hasattr(payload, "resolve_names") and callable(getattr(payload, "resolve_names")):
-            payload = payload.resolve_names()
-
         response = unirest.post(query_url, headers=headers,  params=APIHelper.json_serialize(payload))
 
         # Error handling using HTTP status codes
@@ -368,10 +368,11 @@ class UserCartsController(object):
         })
 
         # Process optional query parameters
-        query_builder = APIHelper.append_url_with_query_parameters(query_builder, {
+        query_parameters = {
             "client_id": self.__client_id,
             "client_secret": self.__client_secret
-        })
+        }
+        query_builder = APIHelper.append_url_with_query_parameters(query_builder, query_parameters)
 
         # Validate and preprocess url
         query_url = APIHelper.clean_url(query_builder)
@@ -443,10 +444,11 @@ class UserCartsController(object):
         })
 
         # Process optional query parameters
-        query_builder = APIHelper.append_url_with_query_parameters(query_builder, {
+        query_parameters = {
             "client_id": self.__client_id,
             "client_secret": self.__client_secret
-        })
+        }
+        query_builder = APIHelper.append_url_with_query_parameters(query_builder, query_parameters)
 
         # Validate and preprocess url
         query_url = APIHelper.clean_url(query_builder)
@@ -519,10 +521,11 @@ class UserCartsController(object):
         })
 
         # Process optional query parameters
-        query_builder = APIHelper.append_url_with_query_parameters(query_builder, {
+        query_parameters = {
             "client_id": self.__client_id,
             "client_secret": self.__client_secret
-        })
+        }
+        query_builder = APIHelper.append_url_with_query_parameters(query_builder, query_parameters)
 
         # Validate and preprocess url
         query_url = APIHelper.clean_url(query_builder)

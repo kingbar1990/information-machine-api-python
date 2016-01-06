@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 """
    InformationMachineAPILib.Controllers.UserStoresController
 
@@ -9,6 +11,7 @@ from InformationMachineAPILib.APIHelper import APIHelper
 from InformationMachineAPILib.Configuration import Configuration
 from InformationMachineAPILib.APIException import APIException
 from InformationMachineAPILib.Models.GetAllStoresWrapper import GetAllStoresWrapper
+from InformationMachineAPILib.Models.ConnectStoreWrapper import ConnectStoreWrapper
 from InformationMachineAPILib.Models.ConnectStoreWrapper import ConnectStoreWrapper
 from InformationMachineAPILib.Models.GetSingleStoresWrapper import GetSingleStoresWrapper
 from InformationMachineAPILib.Models.UpdateStoreConnectionWrapper import UpdateStoreConnectionWrapper
@@ -45,7 +48,17 @@ class UserStoresController(object):
         defined""Verified" - (scraping bots are able to log in to store
         site)"Invalid" - (supplied user name or password are not
         valid)"Unknown" - (user name or password are not know)"Checking" -
-        (credentials verification is in progress)
+        (credentials verification is in progress)To get the value of
+        credentials_status first check if scrape_status is one of the
+        following: "Scraping", "Done", "Done With Warning"Sometimes the
+        account can be locked because a security question, image captcha or
+        sms verification code is needed in order to proceed with scraping.You
+        can check whether the account is locked if property account_locked is
+        set to true. To unlock the store connection visit the url the can be
+        found in unlock_url property.For more information on this please visit
+        the <a
+        href="https://www.iamdata.co/docs?section=user-stores-section#userstore
+        unlock">docs</a> page.
 
         Args:
             user_id (string): TODO: type description here.
@@ -74,12 +87,13 @@ class UserStoresController(object):
         })
 
         # Process optional query parameters
-        query_builder = APIHelper.append_url_with_query_parameters(query_builder, {
+        query_parameters = {
             "page": page,
             "per_page": per_page,
             "client_id": self.__client_id,
             "client_secret": self.__client_secret
-        })
+        }
+        query_builder = APIHelper.append_url_with_query_parameters(query_builder, query_parameters)
 
         # Validate and preprocess url
         query_url = APIHelper.clean_url(query_builder)
@@ -124,12 +138,15 @@ class UserStoresController(object):
         following properties: "scrape_status" and "credentials_status".
         Possible values for "scrape_status": "Not defined""Pending" -
         (scraping request is in queue and waiting to be processed)"Scraping" -
-        (scraping is in progress)"Done" - (scraping is finished)"Done With
-        Warning" - (not all purchases were scraped)Possible values for
-        "credentials_status":"Not defined""Verified" - (scraping bots are able
-        to log in to store site)"Invalid" - (supplied user name or password
-        are not valid)"Unknown" - (user name or password are not
-        know)"Checking" - (credentials verification is in progress)
+        (scraping is in progress, credentials are set)"Done" - (scraping is
+        finished)"Done With Warning" - (not all purchases were
+        scraped)Possible values for "credentials_status":"Not
+        defined""Verified" - (scraping bots are able to log in to store
+        site)"Invalid" - (supplied user name or password are not
+        valid)"Unknown" - (user name or password are not know)"Checking" -
+        (credentials verification is in progress)To get the value of
+        credentials_status first check if scrape_status is one of the
+        following: "Scraping", "Done", "DoneWithWarning"
 
         Args:
             payload (ConnectUserStoreRequest): TODO: type description here.
@@ -157,10 +174,11 @@ class UserStoresController(object):
         })
 
         # Process optional query parameters
-        query_builder = APIHelper.append_url_with_query_parameters(query_builder, {
+        query_parameters = {
             "client_id": self.__client_id,
             "client_secret": self.__client_secret
-        })
+        }
+        query_builder = APIHelper.append_url_with_query_parameters(query_builder, query_parameters)
 
         # Validate and preprocess url
         query_url = APIHelper.clean_url(query_builder)
@@ -173,9 +191,99 @@ class UserStoresController(object):
         }
 
         # Prepare and invoke the API call request to fetch the response
-        if payload is not None and hasattr(payload, "resolve_names") and callable(getattr(payload, "resolve_names")):
-            payload = payload.resolve_names()
+        response = unirest.post(query_url, headers=headers,  params=APIHelper.json_serialize(payload))
 
+        # Error handling using HTTP status codes
+        if response.code == 400:
+            raise APIException("Bad request", 400, response.body)
+
+        elif response.code == 401:
+            raise APIException("Unauthorized", 401, response.body)
+
+        elif response.code == 404:
+            raise APIException("Not Found", 404, response.body)
+
+        elif response.code == 500:
+            raise APIException("Internal Server Error", 500, response.body)
+
+        elif response.code < 200 or response.code > 206:  # 200 = HTTP OK
+            raise APIException("HTTP Response Not OK", response.code, response.body)
+        
+        # Try to cast response to desired type
+        if isinstance(response.body, dict):
+            # Response is already in a dictionary, return the object 
+            return ConnectStoreWrapper(**response.body)
+        
+        # If we got here then an error occured while trying to parse the response
+        raise APIException("Invalid JSON returned", response.code, response.body) 
+
+    def user_stores_connect_o_auth_store(self,
+                                         payload,
+                                         user_id):
+        """Does a POST request to /v1/users/{user_id}/stores/oauth.
+
+        Connect a user's store by specifying the user ID ("user_id"), store ID
+        ("store_id") and OAuth2 provider (such as GMailAPI) You can find store
+        IDs in Lookup/Stores section above or in this <a
+        href="http://api.iamdata.co/docs/storeids" target="blank">LINK</a>.
+        Note: Within response you should focus on the following properties:
+        "scrape_status", "credentials_status" and OAuth providers where you
+        will find a url link for authorization. Possible values for
+        "scrape_status": "Not defined""Pending" - (scraping request is in
+        queue and waiting to be processed)"Scraping" - (scraping is in
+        progress)"Done" - (scraping is finished)"Done With Warning" - (not all
+        purchases were scraped)Possible values for "credentials_status":"Not
+        defined""Verified" - (scraping bots are able to log in to store
+        site)"Invalid" - (supplied user name or password are not
+        valid)"Unknown" - (user name or password are not know)"Checking" -
+        (credentials verification is in progress)To get the value of
+        credentials_status first check if scrape_status is one of the
+        following: "Scraping", "Done", "DoneWithWarning"
+
+        Args:
+            payload (ConnectOAuthUserStoreRequest): TODO: type description
+                here.
+            user_id (string): TODO: type description here.
+
+        Returns:
+            ConnectStoreWrapper: Response from the API. Created
+
+        Raises:
+            APIException: When an error occurs while fetching the data from
+                the remote API. This exception includes the HTTP Response
+                code, an error message, and the HTTP body that was received in
+                the request.
+
+        """
+        # The base uri for api requests
+        query_builder = Configuration.BASE_URI
+ 
+        # Prepare query string for API call
+        query_builder += "/v1/users/{user_id}/stores/oauth"
+
+        # Process optional template parameters
+        query_builder = APIHelper.append_url_with_template_parameters(query_builder, { 
+            "user_id": user_id
+        })
+
+        # Process optional query parameters
+        query_parameters = {
+            "client_id": self.__client_id,
+            "client_secret": self.__client_secret
+        }
+        query_builder = APIHelper.append_url_with_query_parameters(query_builder, query_parameters)
+
+        # Validate and preprocess url
+        query_url = APIHelper.clean_url(query_builder)
+
+        # Prepare headers
+        headers = {
+            "user-agent": "IAMDATA V1",
+            "accept": "application/json",
+            "content-type": "application/json; charset=utf-8"
+        }
+
+        # Prepare and invoke the API call request to fetch the response
         response = unirest.post(query_url, headers=headers,  params=APIHelper.json_serialize(payload))
 
         # Error handling using HTTP status codes
@@ -218,7 +326,17 @@ class UserStoresController(object):
         defined""Verified" - (scraping bots are able to log in to store
         site)"Invalid" - (supplied user name or password are not
         valid)"Unknown" - (user name or password are not know)"Checking" -
-        (credentials verification is in progress)
+        (credentials verification is in progress)To get the value of
+        credentials_status first check if scrape_status is one of the
+        following: "Scraping", "Done", "Done With Warning"Sometimes the
+        account can be locked because a security question, image captcha or
+        sms verification code is needed in order to proceed with scraping.You
+        can check whether the account is locked if property account_locked is
+        set to true. To unlock the store connection visit the url the can be
+        found in unlock_url property.For more information on this please visit
+        the <a
+        href="https://www.iamdata.co/docs?section=user-stores-section#userstore
+        unlock">docs</a> page.
 
         Args:
             user_id (string): TODO: type description here.
@@ -247,10 +365,11 @@ class UserStoresController(object):
         })
 
         # Process optional query parameters
-        query_builder = APIHelper.append_url_with_query_parameters(query_builder, {
+        query_parameters = {
             "client_id": self.__client_id,
             "client_secret": self.__client_secret
-        })
+        }
+        query_builder = APIHelper.append_url_with_query_parameters(query_builder, query_parameters)
 
         # Validate and preprocess url
         query_url = APIHelper.clean_url(query_builder)
@@ -320,10 +439,11 @@ class UserStoresController(object):
         })
 
         # Process optional query parameters
-        query_builder = APIHelper.append_url_with_query_parameters(query_builder, {
+        query_parameters = {
             "client_id": self.__client_id,
             "client_secret": self.__client_secret
-        })
+        }
+        query_builder = APIHelper.append_url_with_query_parameters(query_builder, query_parameters)
 
         # Validate and preprocess url
         query_url = APIHelper.clean_url(query_builder)
@@ -336,9 +456,6 @@ class UserStoresController(object):
         }
 
         # Prepare and invoke the API call request to fetch the response
-        if payload is not None and hasattr(payload, "resolve_names") and callable(getattr(payload, "resolve_names")):
-            payload = payload.resolve_names()
-
         response = unirest.put(query_url, headers=headers,  params=APIHelper.json_serialize(payload))
 
         # Error handling using HTTP status codes
@@ -397,10 +514,11 @@ class UserStoresController(object):
         })
 
         # Process optional query parameters
-        query_builder = APIHelper.append_url_with_query_parameters(query_builder, {
+        query_parameters = {
             "client_id": self.__client_id,
             "client_secret": self.__client_secret
-        })
+        }
+        query_builder = APIHelper.append_url_with_query_parameters(query_builder, query_parameters)
 
         # Validate and preprocess url
         query_url = APIHelper.clean_url(query_builder)

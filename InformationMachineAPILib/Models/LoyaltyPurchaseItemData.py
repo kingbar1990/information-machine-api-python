@@ -1,10 +1,12 @@
+# -*- coding: utf-8 -*-
+
 """
    InformationMachineAPILib.Models.LoyaltyPurchaseItemData
  
    
 """
 from InformationMachineAPILib.APIHelper import APIHelper
-from InformationMachineAPILib.Models.PurchaseItemProduct import PurchaseItemProduct
+from InformationMachineAPILib.Models.ProductData import ProductData
 
 class LoyaltyPurchaseItemData(object):
 
@@ -17,7 +19,8 @@ class LoyaltyPurchaseItemData(object):
         name (string): TODO: type description here.
         upc (string): TODO: type description here.
         upc_resolved_at (string): TODO: type description here.
-        product (PurchaseItemProduct): TODO: type description here.
+        created_at (string): TODO: type description here.
+        product (ProductData): TODO: type description here.
 
     """
 
@@ -35,7 +38,8 @@ class LoyaltyPurchaseItemData(object):
                     name -- string -- Sets the attribute name
                     upc -- string -- Sets the attribute upc
                     upc_resolved_at -- string -- Sets the attribute upc_resolved_at
-                    product -- PurchaseItemProduct -- Sets the attribute product
+                    created_at -- string -- Sets the attribute created_at
+                    product -- ProductData -- Sets the attribute product
         
         """
         # Set all of the parameters to their default values
@@ -43,6 +47,7 @@ class LoyaltyPurchaseItemData(object):
         self.name = None
         self.upc = None
         self.upc_resolved_at = None
+        self.created_at = None
         self.product = None
 
         # Create a mapping from API property names to Model property names
@@ -51,6 +56,7 @@ class LoyaltyPurchaseItemData(object):
             "name": "name",
             "upc": "upc",
             "upc_resolved_at": "upc_resolved_at",
+            "created_at": "created_at",
             "product": "product",
         }
 
@@ -63,7 +69,7 @@ class LoyaltyPurchaseItemData(object):
 
             # Other objects also need to be initialised properly
             if "product" in kwargs:
-                self.product = PurchaseItemProduct(**kwargs["product"])
+                self.product = ProductData(**kwargs["product"])
 
     def resolve_names(self):
         """Creates a dictionary representation of this object.
@@ -83,6 +89,7 @@ class LoyaltyPurchaseItemData(object):
             "name": "name",
             "upc": "upc",
             "upc_resolved_at": "upc_resolved_at",
+            "created_at": "created_at",
             "product": "product",
         }
 

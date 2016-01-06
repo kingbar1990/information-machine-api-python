@@ -14,7 +14,7 @@ def wait_for_scrape_to_finish (user_stores_controller, user_identifier, store_id
     for i in range(0, 120):
         connected_store = user_stores_controller.user_stores_get_single_store(user_identifier, store_id);
 
-        if (connected_store is not None and connected_store.result.scrape_status == "Done"):
+        if (connected_store is not None and (connected_store.result.scrape_status == "Done" or connected_store.result.scrape_status == "Done With Warning")):
             return True;
 
         time.sleep(3)
@@ -27,10 +27,10 @@ def check_store_validity (user_stores_controller, user_identifier, store_id):
     for i in range(0, 15):
         connected_store = user_stores_controller.user_stores_get_single_store(user_identifier, store_id);
 
-        if (connected_store is not None):
+        if (connected_store is not None and (connected_store.result.scrape_status == "Done" or connected_store.result.scrape_status == "Done With Warning" or connected_store.result.scrape_status == "Scraping")):
             if(connected_store.result.credentials_status == "Verified"):
                 return True
-            elif(connected_store.result.credentials_status == "Invalid"):
+            else
                 return False
 
         time.sleep(3)
@@ -93,12 +93,6 @@ def test_user_purchase (products_controller, client_id, client_secret, store_id,
         user_stores_controller.user_stores_delete_single_store(user_id, user_store.id);
         raise APITestException("Error: could not connect to store")
 
-    update_user_store_request = UpdateUserStoreRequest()
-    update_user_store_request.username = username
-    update_user_store_request.password = password
-
-    user_stores_controller.user_stores_update_store_connection(update_user_store_request, user_id, user_store.id);
-
     if (not wait_for_scrape_to_finish(user_stores_controller, user_id, user_store.id)):
         raise APITestException("Error: scrape is not finished")
 
@@ -110,9 +104,11 @@ def test_user_purchase (products_controller, client_id, client_secret, store_id,
     if (user_products.__len__() == 0):
         raise APITestException("Error: get user products")
 
-    user_purchases = user_purchases_controller.user_purchases_get_all_user_purchases(user_id, None, 1, 15, None, None, None, None, None, None, None, None, True, None, None, None).result;
+    user_purchases = user_purchases_controller.user_purchases_get_all_user_purchases(user_id, None, 1, 15, None, None, None, None, None, None, None, None, True, None, None, None, None).result;
     if (user_purchases.__len__() == 0):
         raise APITestException("Error: get all user purchases")
+        
+    purchase_history = user_purchases_controller.user_purchases_get_purchase_history_unified(user_id, None, None, None, None, None, None);
 
     user_purchase = user_purchases_controller.user_purchases_get_single_user_purchase(user_id, user_purchases[0].id, True).result;
     if (user_purchase is None or user_purchase.id != user_purchases[0].id):

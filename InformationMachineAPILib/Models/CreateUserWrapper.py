@@ -1,10 +1,12 @@
+# -*- coding: utf-8 -*-
+
 """
    InformationMachineAPILib.Models.CreateUserWrapper
  
    
 """
 from InformationMachineAPILib.APIHelper import APIHelper
-from InformationMachineAPILib.Models.RegisterUserResponse import RegisterUserResponse
+from InformationMachineAPILib.Models.UserData import UserData
 from InformationMachineAPILib.Models.MetaBase import MetaBase
 
 class CreateUserWrapper(object):
@@ -14,7 +16,7 @@ class CreateUserWrapper(object):
     TODO: type model description here.
 
     Attributes:
-        result (RegisterUserResponse): TODO: type description here.
+        result (UserData): TODO: type description here.
         meta (MetaBase): TODO: type description here.
 
     """
@@ -29,7 +31,7 @@ class CreateUserWrapper(object):
                 be set through the **kwargs of the constructor. The values
                 that can be supplied and their types are as follows::
 
-                    result -- RegisterUserResponse -- Sets the attribute result
+                    result -- UserData -- Sets the attribute result
                     meta -- MetaBase -- Sets the attribute meta
         
         """
@@ -52,7 +54,7 @@ class CreateUserWrapper(object):
 
             # Other objects also need to be initialised properly
             if "result" in kwargs:
-                self.result = RegisterUserResponse(**kwargs["result"])
+                self.result = UserData(**kwargs["result"])
 
             # Other objects also need to be initialised properly
             if "meta" in kwargs:

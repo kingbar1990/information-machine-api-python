@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 """
    InformationMachineAPILib.Models.UserStore
  
@@ -21,6 +23,10 @@ class UserStore(object):
         credentials_status (string): TODO: type description here.
         scrape_status (string): TODO: type description here.
         mtype (string): TODO: type description here.
+        account_locked (bool): TODO: type description here.
+        unlock_url (string): TODO: type description here.
+        oauth_provider (string): TODO: type description here.
+        oauth_authorization_url (string): TODO: type description here.
         created_at (string): TODO: type description here.
         updated_at (string): TODO: type description here.
 
@@ -44,6 +50,10 @@ class UserStore(object):
                     credentials_status -- string -- Sets the attribute credentials_status
                     scrape_status -- string -- Sets the attribute scrape_status
                     type -- string -- Sets the attribute mtype
+                    account_locked -- bool -- Sets the attribute account_locked
+                    unlock_url -- string -- Sets the attribute unlock_url
+                    oauth_provider -- string -- Sets the attribute oauth_provider
+                    oauth_authorization_url -- string -- Sets the attribute oauth_authorization_url
                     created_at -- string -- Sets the attribute created_at
                     updated_at -- string -- Sets the attribute updated_at
         
@@ -57,6 +67,10 @@ class UserStore(object):
         self.credentials_status = None
         self.scrape_status = None
         self.mtype = None
+        self.account_locked = None
+        self.unlock_url = None
+        self.oauth_provider = None
+        self.oauth_authorization_url = None
         self.created_at = None
         self.updated_at = None
 
@@ -70,6 +84,10 @@ class UserStore(object):
             "credentials_status": "credentials_status",
             "scrape_status": "scrape_status",
             "type": "mtype",
+            "account_locked": "account_locked",
+            "unlock_url": "unlock_url",
+            "oauth_provider": "oauth_provider",
+            "oauth_authorization_url": "oauth_authorization_url",
             "created_at": "created_at",
             "updated_at": "updated_at",
         }
@@ -107,6 +125,10 @@ class UserStore(object):
             "credentials_status": "credentials_status",
             "scrape_status": "scrape_status",
             "mtype": "type",
+            "account_locked": "account_locked",
+            "unlock_url": "unlock_url",
+            "oauth_provider": "oauth_provider",
+            "oauth_authorization_url": "oauth_authorization_url",
             "created_at": "created_at",
             "updated_at": "updated_at",
         }

@@ -1,29 +1,26 @@
 # -*- coding: utf-8 -*-
 
 """
-   InformationMachineAPILib.Models.PurchasedProduct
+   InformationMachineAPILib.Models.NameResolveRequest
  
    
 """
 from InformationMachineAPILib.APIHelper import APIHelper
 
-class PurchasedProduct(object):
+class NameResolveRequest(object):
 
-    """Implementation of the 'PurchasedProduct' model.
+    """Implementation of the 'NameResolveRequest' model.
 
     TODO: type model description here.
 
     Attributes:
-        product_id (int): TODO: type description here.
-        date (string): TODO: type description here.
-        store (string): TODO: type description here.
-        price (double): TODO: type description here.
+        name_store_list (list of string): TODO: type description here.
 
     """
 
     def __init__(self,
                  **kwargs):
-        """Constructor for the PurchasedProduct class
+        """Constructor for the NameResolveRequest class
         
         Args:
             **kwargs: Keyword Arguments in order to initialise the
@@ -31,24 +28,15 @@ class PurchasedProduct(object):
                 be set through the **kwargs of the constructor. The values
                 that can be supplied and their types are as follows::
 
-                    product_id -- int -- Sets the attribute product_id
-                    date -- string -- Sets the attribute date
-                    store -- string -- Sets the attribute store
-                    price -- double -- Sets the attribute price
+                    name_store_list -- list of string -- Sets the attribute name_store_list
         
         """
         # Set all of the parameters to their default values
-        self.product_id = None
-        self.date = None
-        self.store = None
-        self.price = None
+        self.name_store_list = None
 
         # Create a mapping from API property names to Model property names
         replace_names = {
-            "product_id": "product_id",
-            "date": "date",
-            "store": "store",
-            "price": "price",
+            "name_store_list": "name_store_list",
         }
 
         # Parse all of the Key-Value arguments
@@ -72,10 +60,7 @@ class PurchasedProduct(object):
         """
         # Create a mapping from Model property names to API property names
         replace_names = {
-            "product_id": "product_id",
-            "date": "date",
-            "store": "store",
-            "price": "price",
+            "name_store_list": "name_store_list",
         }
 
         retval = dict()
