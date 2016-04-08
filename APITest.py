@@ -109,6 +109,8 @@ def test_user_purchase (products_controller, client_id, client_secret, store_id,
         raise APITestException("Error: get all user purchases")
         
     purchase_history = user_purchases_controller.user_purchases_get_purchase_history_unified(user_id, None, None, None, None, None, None);
+	if (purchase_history.__len__() == 0):
+        raise APITestException("Error: get purchase history")
 
     user_purchase = user_purchases_controller.user_purchases_get_single_user_purchase(user_id, user_purchases[0].id, True).result;
     if (user_purchase is None or user_purchase.id != user_purchases[0].id):
