@@ -3,9 +3,9 @@
 """
    InformationMachineAPILib.Controllers.UserCartsController
 
-   
+
 """
-import unirest
+import requests
 
 from InformationMachineAPILib.APIHelper import APIHelper
 from InformationMachineAPILib.Configuration import Configuration
@@ -55,12 +55,12 @@ class UserCartsController(object):
         """
         # The base uri for api requests
         query_builder = Configuration.BASE_URI
- 
+
         # Prepare query string for API call
         query_builder += "/users/{user_id}/carts"
 
         # Process optional template parameters
-        query_builder = APIHelper.append_url_with_template_parameters(query_builder, { 
+        query_builder = APIHelper.append_url_with_template_parameters(query_builder, {
             "user_id": user_id
         })
 
@@ -81,28 +81,28 @@ class UserCartsController(object):
         }
 
         # Prepare and invoke the API call request to fetch the response
-        response = unirest.get(query_url, headers=headers)
+        response = requests.get(query_url, headers=headers)
 
         # Error handling using HTTP status codes
-        if response.code == 401:
-            raise APIException("Unauthorized", 401, response.body)
+        if response.status_code == 401:
+            raise APIException("Unauthorized", 401, response.json())
 
-        elif response.code == 404:
-            raise APIException("Not Found", 404, response.body)
+        elif response.status_code == 404:
+            raise APIException("Not Found", 404, response.json())
 
-        elif response.code == 422:
-            raise APIException("Unprocessable Entity", 422, response.body)
+        elif response.status_code == 422:
+            raise APIException("Unprocessable Entity", 422, response.json())
 
-        elif response.code < 200 or response.code > 206:  # 200 = HTTP OK
-            raise APIException("HTTP Response Not OK", response.code, response.body)
-        
+        elif response.status_code < 200 or response.status_code > 206:  # 200 = HTTP OK
+            raise APIException("HTTP Response Not OK", response.status_code, response.json())
+
         # Try to cast response to desired type
-        if isinstance(response.body, dict):
-            # Response is already in a dictionary, return the object 
-            return GetCartsWrapper(**response.body)
-        
+        if isinstance(response.json(), dict):
+            # Response is already in a dictionary, return the object
+            return GetCartsWrapper(**response.json())
+
         # If we got here then an error occured while trying to parse the response
-        raise APIException("Invalid JSON returned", response.code, response.body) 
+        raise APIException("Invalid JSON returned", response.status_code, response.json())
 
     def user_carts_create_cart(self,
                                user_id,
@@ -127,12 +127,12 @@ class UserCartsController(object):
         """
         # The base uri for api requests
         query_builder = Configuration.BASE_URI
- 
+
         # Prepare query string for API call
         query_builder += "/users/{user_id}/carts"
 
         # Process optional template parameters
-        query_builder = APIHelper.append_url_with_template_parameters(query_builder, { 
+        query_builder = APIHelper.append_url_with_template_parameters(query_builder, {
             "user_id": user_id
         })
 
@@ -154,31 +154,31 @@ class UserCartsController(object):
         }
 
         # Prepare and invoke the API call request to fetch the response
-        response = unirest.post(query_url, headers=headers,  params=APIHelper.json_serialize(payload))
+        response = requests.post(query_url, headers=headers,  params=APIHelper.json_serialize(payload))
 
         # Error handling using HTTP status codes
-        if response.code == 400:
-            raise APIException("Bad Request", 400, response.body)
+        if response.status_code == 400:
+            raise APIException("Bad Request", 400, response.json())
 
-        elif response.code == 401:
-            raise APIException("Unauthorized", 401, response.body)
+        elif response.status_code == 401:
+            raise APIException("Unauthorized", 401, response.json())
 
-        elif response.code == 422:
-            raise APIException("Unprocessable Entity", 422, response.body)
+        elif response.status_code == 422:
+            raise APIException("Unprocessable Entity", 422, response.json())
 
-        elif response.code == 500:
-            raise APIException("Internal Server Error", 500, response.body)
+        elif response.status_code == 500:
+            raise APIException("Internal Server Error", 500, response.json())
 
-        elif response.code < 200 or response.code > 206:  # 200 = HTTP OK
-            raise APIException("HTTP Response Not OK", response.code, response.body)
-        
+        elif response.status_code < 200 or response.status_code > 206:  # 200 = HTTP OK
+            raise APIException("HTTP Response Not OK", response.status_code, response.json())
+
         # Try to cast response to desired type
-        if isinstance(response.body, dict):
-            # Response is already in a dictionary, return the object 
-            return AddCartWrapper(**response.body)
-        
+        if isinstance(response.json(), dict):
+            # Response is already in a dictionary, return the object
+            return AddCartWrapper(**response.json())
+
         # If we got here then an error occured while trying to parse the response
-        raise APIException("Invalid JSON returned", response.code, response.body) 
+        raise APIException("Invalid JSON returned", response.status_code, response.json())
 
     def user_carts_get_cart(self,
                             user_id,
@@ -204,12 +204,12 @@ class UserCartsController(object):
         """
         # The base uri for api requests
         query_builder = Configuration.BASE_URI
- 
+
         # Prepare query string for API call
         query_builder += "/users/{user_id}/carts/{cart_id}"
 
         # Process optional template parameters
-        query_builder = APIHelper.append_url_with_template_parameters(query_builder, { 
+        query_builder = APIHelper.append_url_with_template_parameters(query_builder, {
             "user_id": user_id,
             "cart_id": cart_id
         })
@@ -231,28 +231,28 @@ class UserCartsController(object):
         }
 
         # Prepare and invoke the API call request to fetch the response
-        response = unirest.get(query_url, headers=headers)
+        response = requests.get(query_url, headers=headers)
 
         # Error handling using HTTP status codes
-        if response.code == 401:
-            raise APIException("Unauthorized", 401, response.body)
+        if response.status_code == 401:
+            raise APIException("Unauthorized", 401, response.json())
 
-        elif response.code == 404:
-            raise APIException("Not Found", 404, response.body)
+        elif response.status_code == 404:
+            raise APIException("Not Found", 404, response.json())
 
-        elif response.code == 422:
-            raise APIException("Unprocessable Entity", 422, response.body)
+        elif response.status_code == 422:
+            raise APIException("Unprocessable Entity", 422, response.json())
 
-        elif response.code < 200 or response.code > 206:  # 200 = HTTP OK
-            raise APIException("HTTP Response Not OK", response.code, response.body)
-        
+        elif response.status_code < 200 or response.status_code > 206:  # 200 = HTTP OK
+            raise APIException("HTTP Response Not OK", response.status_code, response.json())
+
         # Try to cast response to desired type
-        if isinstance(response.body, dict):
-            # Response is already in a dictionary, return the object 
-            return GetCartWrapper(**response.body)
-        
+        if isinstance(response.json(), dict):
+            # Response is already in a dictionary, return the object
+            return GetCartWrapper(**response.json())
+
         # If we got here then an error occured while trying to parse the response
-        raise APIException("Invalid JSON returned", response.code, response.body) 
+        raise APIException("Invalid JSON returned", response.status_code, response.json())
 
     def user_carts_add_cart_item(self,
                                  user_id,
@@ -279,12 +279,12 @@ class UserCartsController(object):
         """
         # The base uri for api requests
         query_builder = Configuration.BASE_URI
- 
+
         # Prepare query string for API call
         query_builder += "/users/{user_id}/carts/{cart_id}"
 
         # Process optional template parameters
-        query_builder = APIHelper.append_url_with_template_parameters(query_builder, { 
+        query_builder = APIHelper.append_url_with_template_parameters(query_builder, {
             "user_id": user_id,
             "cart_id": cart_id
         })
@@ -307,31 +307,31 @@ class UserCartsController(object):
         }
 
         # Prepare and invoke the API call request to fetch the response
-        response = unirest.post(query_url, headers=headers,  params=APIHelper.json_serialize(payload))
+        response = requests.post(query_url, headers=headers,  params=APIHelper.json_serialize(payload))
 
         # Error handling using HTTP status codes
-        if response.code == 400:
-            raise APIException("Bad Request", 400, response.body)
+        if response.status_code == 400:
+            raise APIException("Bad Request", 400, response.json())
 
-        elif response.code == 401:
-            raise APIException("Unauthorized", 401, response.body)
+        elif response.status_code == 401:
+            raise APIException("Unauthorized", 401, response.json())
 
-        elif response.code == 422:
-            raise APIException("Unprocessable Entity", 422, response.body)
+        elif response.status_code == 422:
+            raise APIException("Unprocessable Entity", 422, response.json())
 
-        elif response.code == 500:
-            raise APIException("Internal Server Error", 500, response.body)
+        elif response.status_code == 500:
+            raise APIException("Internal Server Error", 500, response.json())
 
-        elif response.code < 200 or response.code > 206:  # 200 = HTTP OK
-            raise APIException("HTTP Response Not OK", response.code, response.body)
-        
+        elif response.status_code < 200 or response.status_code > 206:  # 200 = HTTP OK
+            raise APIException("HTTP Response Not OK", response.status_code, response.json())
+
         # Try to cast response to desired type
-        if isinstance(response.body, dict):
-            # Response is already in a dictionary, return the object 
-            return AddCartItemWrapper(**response.body)
-        
+        if isinstance(response.json(), dict):
+            # Response is already in a dictionary, return the object
+            return AddCartItemWrapper(**response.json())
+
         # If we got here then an error occured while trying to parse the response
-        raise APIException("Invalid JSON returned", response.code, response.body) 
+        raise APIException("Invalid JSON returned", response.status_code, response.json())
 
     def user_carts_delete_cart(self,
                                user_id,
@@ -357,12 +357,12 @@ class UserCartsController(object):
         """
         # The base uri for api requests
         query_builder = Configuration.BASE_URI
- 
+
         # Prepare query string for API call
         query_builder += "/users/{user_id}/carts/{cart_id}"
 
         # Process optional template parameters
-        query_builder = APIHelper.append_url_with_template_parameters(query_builder, { 
+        query_builder = APIHelper.append_url_with_template_parameters(query_builder, {
             "user_id": user_id,
             "cart_id": cart_id
         })
@@ -384,28 +384,28 @@ class UserCartsController(object):
         }
 
         # Prepare and invoke the API call request to fetch the response
-        response = unirest.delete(query_url, headers=headers)
+        response = requests.delete(query_url, headers=headers)
 
         # Error handling using HTTP status codes
-        if response.code == 401:
-            raise APIException("Unauthorized", 401, response.body)
+        if response.status_code == 401:
+            raise APIException("Unauthorized", 401, response.json())
 
-        elif response.code == 404:
-            raise APIException("Not Found", 404, response.body)
+        elif response.status_code == 404:
+            raise APIException("Not Found", 404, response.json())
 
-        elif response.code == 422:
-            raise APIException("Unprocessable Entity", 422, response.body)
+        elif response.status_code == 422:
+            raise APIException("Unprocessable Entity", 422, response.json())
 
-        elif response.code < 200 or response.code > 206:  # 200 = HTTP OK
-            raise APIException("HTTP Response Not OK", response.code, response.body)
-        
+        elif response.status_code < 200 or response.status_code > 206:  # 200 = HTTP OK
+            raise APIException("HTTP Response Not OK", response.status_code, response.json())
+
         # Try to cast response to desired type
-        if isinstance(response.body, dict):
-            # Response is already in a dictionary, return the object 
-            return DeleteCartWrapper(**response.body)
-        
+        if isinstance(response.json(), dict):
+            # Response is already in a dictionary, return the object
+            return DeleteCartWrapper(**response.json())
+
         # If we got here then an error occured while trying to parse the response
-        raise APIException("Invalid JSON returned", response.code, response.body) 
+        raise APIException("Invalid JSON returned", response.status_code, response.json())
 
     def user_carts_remove_cart_item(self,
                                     user_id,
@@ -432,12 +432,12 @@ class UserCartsController(object):
         """
         # The base uri for api requests
         query_builder = Configuration.BASE_URI
- 
+
         # Prepare query string for API call
         query_builder += "/users/{user_id}/carts/{cart_id}/items/{cart_item_id}"
 
         # Process optional template parameters
-        query_builder = APIHelper.append_url_with_template_parameters(query_builder, { 
+        query_builder = APIHelper.append_url_with_template_parameters(query_builder, {
             "user_id": user_id,
             "cart_id": cart_id,
             "cart_item_id": cart_item_id
@@ -460,28 +460,28 @@ class UserCartsController(object):
         }
 
         # Prepare and invoke the API call request to fetch the response
-        response = unirest.delete(query_url, headers=headers)
+        response = requests.delete(query_url, headers=headers)
 
         # Error handling using HTTP status codes
-        if response.code == 401:
-            raise APIException("Unauthorized", 401, response.body)
+        if response.status_code == 401:
+            raise APIException("Unauthorized", 401, response.json())
 
-        elif response.code == 404:
-            raise APIException("Not Found", 404, response.body)
+        elif response.status_code == 404:
+            raise APIException("Not Found", 404, response.json())
 
-        elif response.code == 422:
-            raise APIException("Unprocessable Entity", 422, response.body)
+        elif response.status_code == 422:
+            raise APIException("Unprocessable Entity", 422, response.json())
 
-        elif response.code < 200 or response.code > 206:  # 200 = HTTP OK
-            raise APIException("HTTP Response Not OK", response.code, response.body)
-        
+        elif response.status_code < 200 or response.status_code > 206:  # 200 = HTTP OK
+            raise APIException("HTTP Response Not OK", response.status_code, response.json())
+
         # Try to cast response to desired type
-        if isinstance(response.body, dict):
-            # Response is already in a dictionary, return the object 
-            return DeleteCartItemWrapper(**response.body)
-        
+        if isinstance(response.json(), dict):
+            # Response is already in a dictionary, return the object
+            return DeleteCartItemWrapper(**response.json())
+
         # If we got here then an error occured while trying to parse the response
-        raise APIException("Invalid JSON returned", response.code, response.body) 
+        raise APIException("Invalid JSON returned", response.status_code, response.json())
 
     def user_carts_execute_cart(self,
                                 user_id,
@@ -509,12 +509,12 @@ class UserCartsController(object):
         """
         # The base uri for api requests
         query_builder = Configuration.BASE_URI
- 
+
         # Prepare query string for API call
         query_builder += "/users/{user_id}/carts/{cart_id}/stores/{store_id}"
 
         # Process optional template parameters
-        query_builder = APIHelper.append_url_with_template_parameters(query_builder, { 
+        query_builder = APIHelper.append_url_with_template_parameters(query_builder, {
             "user_id": user_id,
             "cart_id": cart_id,
             "store_id": store_id
@@ -537,25 +537,25 @@ class UserCartsController(object):
         }
 
         # Prepare and invoke the API call request to fetch the response
-        response = unirest.get(query_url, headers=headers)
+        response = requests.get(query_url, headers=headers)
 
         # Error handling using HTTP status codes
-        if response.code == 401:
-            raise APIException("Unauthorized", 401, response.body)
+        if response.status_code == 401:
+            raise APIException("Unauthorized", 401, response.json())
 
-        elif response.code == 404:
-            raise APIException("Not Found", 404, response.body)
+        elif response.status_code == 404:
+            raise APIException("Not Found", 404, response.json())
 
-        elif response.code == 422:
-            raise APIException("Unprocessable Entity", 422, response.body)
+        elif response.status_code == 422:
+            raise APIException("Unprocessable Entity", 422, response.json())
 
-        elif response.code < 200 or response.code > 206:  # 200 = HTTP OK
-            raise APIException("HTTP Response Not OK", response.code, response.body)
-        
+        elif response.status_code < 200 or response.status_code > 206:  # 200 = HTTP OK
+            raise APIException("HTTP Response Not OK", response.status_code, response.json())
+
         # Try to cast response to desired type
-        if isinstance(response.body, dict):
-            # Response is already in a dictionary, return the object 
-            return ExecuteCartWrapper(**response.body)
-        
+        if isinstance(response.json(), dict):
+            # Response is already in a dictionary, return the object
+            return ExecuteCartWrapper(**response.json())
+
         # If we got here then an error occured while trying to parse the response
-        raise APIException("Invalid JSON returned", response.code, response.body) 
+        raise APIException("Invalid JSON returned", response.status_code, response.json())

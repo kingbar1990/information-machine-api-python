@@ -3,23 +3,25 @@
 """
    InformationMachineAPILib.Controllers.LookupController
 
-   
+
 """
-import unirest
+import requests
 
 from InformationMachineAPILib.APIHelper import APIHelper
 from InformationMachineAPILib.Configuration import Configuration
 from InformationMachineAPILib.APIException import APIException
-from InformationMachineAPILib.Models.GetProductAlternativeTypesWrapper import GetProductAlternativeTypesWrapper
+from InformationMachineAPILib.Models.GetProductAlternativeTypesWrapper\
+    import GetProductAlternativeTypesWrapper
 from InformationMachineAPILib.Models.GetUOMsWrapper import GetUOMsWrapper
-from InformationMachineAPILib.Models.GetCategoriesWrapper import GetCategoriesWrapper
-from InformationMachineAPILib.Models.GetNutrientsWrapper import GetNutrientsWrapper
+from InformationMachineAPILib.Models.GetCategoriesWrapper\
+    import GetCategoriesWrapper
+from InformationMachineAPILib.Models.GetNutrientsWrapper\
+    import GetNutrientsWrapper
 from InformationMachineAPILib.Models.GetStoresWrapper import GetStoresWrapper
 from InformationMachineAPILib.Models.GetTagsWrapper import GetTagsWrapper
 
 
 class LookupController(object):
-
 
     """A Controller to access Endpoints in the InformationMachineAPILib API."""
 
@@ -44,13 +46,13 @@ class LookupController(object):
         Raises:
             APIException: When an error occurs while fetching the data from
                 the remote API. This exception includes the HTTP Response
-                code, an error message, and the HTTP body that was received in
-                the request.
+                status_code, an error message, and the HTTP.json
+                that was received in the request.
 
         """
         # The base uri for api requests
         query_builder = Configuration.BASE_URI
- 
+
         # Prepare query string for API call
         query_builder += "/v1/product_alternative_types"
 
@@ -59,7 +61,8 @@ class LookupController(object):
             "client_id": self.__client_id,
             "client_secret": self.__client_secret
         }
-        query_builder = APIHelper.append_url_with_query_parameters(query_builder, query_parameters)
+        query_builder = APIHelper\
+            .append_url_with_query_parameters(query_builder, query_parameters)
 
         # Validate and preprocess url
         query_url = APIHelper.clean_url(query_builder)
@@ -71,25 +74,29 @@ class LookupController(object):
         }
 
         # Prepare and invoke the API call request to fetch the response
-        response = unirest.get(query_url, headers=headers)
+        response = requests.get(query_url, headers=headers)
 
-        # Error handling using HTTP status codes
-        if response.code == 404:
-            raise APIException("Not Found", 404, response.body)
+        # Error handling using HTTP status_code
+        if response.status_code == 404:
+            raise APIException("Not Found", 404, response.json())
 
-        elif response.code == 401:
-            raise APIException("Unauthorized", 401, response.body)
+        elif response.status_code == 401:
+            raise APIException("Unauthorized", 401, response.json())
 
-        elif response.code < 200 or response.code > 206:  # 200 = HTTP OK
-            raise APIException("HTTP Response Not OK", response.code, response.body)
-        
+        elif response.status_code < 200 or\
+                response.status_code > 206:  # 200 = HTTP OK
+            raise APIException("HTTP Response Not OK",
+                               response.status_code, response.json())
+
         # Try to cast response to desired type
-        if isinstance(response.body, dict):
-            # Response is already in a dictionary, return the object 
-            return GetProductAlternativeTypesWrapper(**response.body)
-        
-        # If we got here then an error occured while trying to parse the response
-        raise APIException("Invalid JSON returned", response.code, response.body) 
+        if isinstance(response.json(), dict):
+            # Response is already in a dictionary, return the object
+            return GetProductAlternativeTypesWrapper(**response.json())
+
+        # If we got here then an error occured while trying
+        # to parse the response
+        raise APIException("Invalid JSON returned",
+                           response.status_code, response.json())
 
     def lookup_get_uo_ms(self):
         """Does a GET request to /v1/units_of_measurement.
@@ -103,13 +110,13 @@ class LookupController(object):
         Raises:
             APIException: When an error occurs while fetching the data from
                 the remote API. This exception includes the HTTP Response
-                code, an error message, and the HTTP body that was received in
+                code, an error message, and the HTTP.json that was received in
                 the request.
 
         """
         # The base uri for api requests
         query_builder = Configuration.BASE_URI
- 
+
         # Prepare query string for API call
         query_builder += "/v1/units_of_measurement"
 
@@ -118,7 +125,8 @@ class LookupController(object):
             "client_id": self.__client_id,
             "client_secret": self.__client_secret
         }
-        query_builder = APIHelper.append_url_with_query_parameters(query_builder, query_parameters)
+        query_builder = APIHelper\
+            .append_url_with_query_parameters(query_builder, query_parameters)
 
         # Validate and preprocess url
         query_url = APIHelper.clean_url(query_builder)
@@ -130,25 +138,29 @@ class LookupController(object):
         }
 
         # Prepare and invoke the API call request to fetch the response
-        response = unirest.get(query_url, headers=headers)
+        response = requests.get(query_url, headers=headers)
 
         # Error handling using HTTP status codes
-        if response.code == 404:
-            raise APIException("Not Found", 404, response.body)
+        if response.status_code == 404:
+            raise APIException("Not Found", 404, response.json())
 
-        elif response.code == 401:
-            raise APIException("Unauthorized", 401, response.body)
+        elif response.status_code == 401:
+            raise APIException("Unauthorized", 401, response.json())
 
-        elif response.code < 200 or response.code > 206:  # 200 = HTTP OK
-            raise APIException("HTTP Response Not OK", response.code, response.body)
-        
+        elif response.status_code < 200 or\
+                response.status_code > 206:  # 200 = HTTP OK
+            raise APIException("HTTP Response Not OK",
+                               response.status_code, response.json())
+
         # Try to cast response to desired type
-        if isinstance(response.body, dict):
-            # Response is already in a dictionary, return the object 
-            return GetUOMsWrapper(**response.body)
-        
-        # If we got here then an error occured while trying to parse the response
-        raise APIException("Invalid JSON returned", response.code, response.body) 
+        if isinstance(response.json(), dict):
+            # Response is already in a dictionary, return the object
+            return GetUOMsWrapper(**response.json())
+
+        # If we got here then an error occured while trying to
+        # parse the response
+        raise APIException("Invalid JSON returned",
+                           response.status_code, response.json())
 
     def lookup_get_categories(self):
         """Does a GET request to /v1/categories.
@@ -163,13 +175,13 @@ class LookupController(object):
         Raises:
             APIException: When an error occurs while fetching the data from
                 the remote API. This exception includes the HTTP Response
-                code, an error message, and the HTTP body that was received in
-                the request.
+                status_code, an error message, and the HTTP.json
+                that was received in the request.
 
         """
         # The base uri for api requests
         query_builder = Configuration.BASE_URI
- 
+
         # Prepare query string for API call
         query_builder += "/v1/categories"
 
@@ -178,7 +190,8 @@ class LookupController(object):
             "client_id": self.__client_id,
             "client_secret": self.__client_secret
         }
-        query_builder = APIHelper.append_url_with_query_parameters(query_builder, query_parameters)
+        query_builder = APIHelper\
+            .append_url_with_query_parameters(query_builder, query_parameters)
 
         # Validate and preprocess url
         query_url = APIHelper.clean_url(query_builder)
@@ -190,25 +203,29 @@ class LookupController(object):
         }
 
         # Prepare and invoke the API call request to fetch the response
-        response = unirest.get(query_url, headers=headers)
+        response = requests.get(query_url, headers=headers)
 
-        # Error handling using HTTP status codes
-        if response.code == 404:
-            raise APIException("Not Found", 404, response.body)
+        # Error handling using HTTP status status_codes
+        if response.status_code == 404:
+            raise APIException("Not Found", 404, response.json())
 
-        elif response.code == 401:
-            raise APIException("Unauthorized", 401, response.body)
+        elif response.status_code == 401:
+            raise APIException("Unauthorized", 401, response.json())
 
-        elif response.code < 200 or response.code > 206:  # 200 = HTTP OK
-            raise APIException("HTTP Response Not OK", response.code, response.body)
-        
+        elif response.status_code < 200 or\
+                response.status_code > 206:  # 200 = HTTP OK
+            raise APIException("HTTP Response Not OK",
+                               response.status_code, response.json())
+
         # Try to cast response to desired type
-        if isinstance(response.body, dict):
-            # Response is already in a dictionary, return the object 
-            return GetCategoriesWrapper(**response.body)
-        
-        # If we got here then an error occured while trying to parse the response
-        raise APIException("Invalid JSON returned", response.code, response.body) 
+        if isinstance(response.json(), dict):
+            # Response is already in a dictionary, return the object
+            return GetCategoriesWrapper(**response.json())
+
+        # If we got here then an error occured while
+        #  trying to parse the response
+        raise APIException("Invalid JSON returned",
+                           response.status_code, response.json())
 
     def lookup_get_nutrients(self):
         """Does a GET request to /v1/nutrients.
@@ -222,13 +239,13 @@ class LookupController(object):
         Raises:
             APIException: When an error occurs while fetching the data from
                 the remote API. This exception includes the HTTP Response
-                code, an error message, and the HTTP body that was received in
-                the request.
+                status_code, an error message, and the HTTP.json
+                that was received in the request.
 
         """
         # The base uri for api requests
         query_builder = Configuration.BASE_URI
- 
+
         # Prepare query string for API call
         query_builder += "/v1/nutrients"
 
@@ -237,7 +254,8 @@ class LookupController(object):
             "client_id": self.__client_id,
             "client_secret": self.__client_secret
         }
-        query_builder = APIHelper.append_url_with_query_parameters(query_builder, query_parameters)
+        query_builder = APIHelper\
+            .append_url_with_query_parameters(query_builder, query_parameters)
 
         # Validate and preprocess url
         query_url = APIHelper.clean_url(query_builder)
@@ -249,25 +267,29 @@ class LookupController(object):
         }
 
         # Prepare and invoke the API call request to fetch the response
-        response = unirest.get(query_url, headers=headers)
+        response = requests.get(query_url, headers=headers)
 
-        # Error handling using HTTP status codes
-        if response.code == 404:
-            raise APIException("Not Found", 404, response.body)
+        # Error handling using HTTP status status_codes
+        if response.status_code == 404:
+            raise APIException("Not Found", 404, response.json())
 
-        elif response.code == 401:
-            raise APIException("Unauthorized", 401, response.body)
+        elif response.status_code == 401:
+            raise APIException("Unauthorized", 401, response.json())
 
-        elif response.code < 200 or response.code > 206:  # 200 = HTTP OK
-            raise APIException("HTTP Response Not OK", response.code, response.body)
-        
+        elif response.status_code < 200 or\
+                response.status_code > 206:  # 200 = HTTP OK
+            raise APIException(
+                "HTTP Response Not OK", response.status_code, response.json())
+
         # Try to cast response to desired type
-        if isinstance(response.body, dict):
-            # Response is already in a dictionary, return the object 
-            return GetNutrientsWrapper(**response.body)
-        
-        # If we got here then an error occured while trying to parse the response
-        raise APIException("Invalid JSON returned", response.code, response.body) 
+        if isinstance(response.json(), dict):
+            # Response is already in a dictionary, return the object
+            return GetNutrientsWrapper(**response.json())
+
+        # If we got here then an error occured while
+        # trying to parse the response
+        raise APIException(
+            "Invalid JSON returned", response.status_code, response.json())
 
     def lookup_get_stores(self):
         """Does a GET request to /v1/stores.
@@ -284,13 +306,13 @@ class LookupController(object):
         Raises:
             APIException: When an error occurs while fetching the data from
                 the remote API. This exception includes the HTTP Response
-                code, an error message, and the HTTP body that was received in
-                the request.
+                status_code, an error message, and the HTTP.json that
+                was received in the request.
 
         """
         # The base uri for api requests
         query_builder = Configuration.BASE_URI
- 
+
         # Prepare query string for API call
         query_builder += "/v1/stores"
 
@@ -299,7 +321,8 @@ class LookupController(object):
             "client_id": self.__client_id,
             "client_secret": self.__client_secret
         }
-        query_builder = APIHelper.append_url_with_query_parameters(query_builder, query_parameters)
+        query_builder = APIHelper\
+            .append_url_with_query_parameters(query_builder, query_parameters)
 
         # Validate and preprocess url
         query_url = APIHelper.clean_url(query_builder)
@@ -311,25 +334,29 @@ class LookupController(object):
         }
 
         # Prepare and invoke the API call request to fetch the response
-        response = unirest.get(query_url, headers=headers)
+        response = requests.get(query_url, headers=headers)
 
-        # Error handling using HTTP status codes
-        if response.code == 404:
-            raise APIException("Not Found", 404, response.body)
+        # Error handling using HTTP status status_codes
+        if response.status_code == 404:
+            raise APIException("Not Found", 404, response.json())
 
-        elif response.code == 401:
-            raise APIException("Unauthorized", 401, response.body)
+        elif response.status_code == 401:
+            raise APIException("Unauthorized", 401, response.json())
 
-        elif response.code < 200 or response.code > 206:  # 200 = HTTP OK
-            raise APIException("HTTP Response Not OK", response.code, response.body)
-        
+        elif response.status_code < 200 or\
+                response.status_code > 206:  # 200 = HTTP OK
+            raise APIException(
+                "HTTP Response Not OK", response.status_code, response.json())
+
         # Try to cast response to desired type
-        if isinstance(response.body, dict):
-            # Response is already in a dictionary, return the object 
-            return GetStoresWrapper(**response.body)
-        
-        # If we got here then an error occured while trying to parse the response
-        raise APIException("Invalid JSON returned", response.code, response.body) 
+        if isinstance(response.json(), dict):
+            # Response is already in a dictionary, return the object
+            return GetStoresWrapper(**response.json())
+
+        # If we got here then an error occured while
+        # trying to parse the response
+        raise APIException(
+            "Invalid JSON returned", response.status_code, response.json())
 
     def lookup_get_tags(self):
         """Does a GET request to /v1/tags.
@@ -342,13 +369,13 @@ class LookupController(object):
         Raises:
             APIException: When an error occurs while fetching the data from
                 the remote API. This exception includes the HTTP Response
-                code, an error message, and the HTTP body that was received in
-                the request.
+                status_code, an error message, and the HTTP.json that was
+                received in the request.
 
         """
         # The base uri for api requests
         query_builder = Configuration.BASE_URI
- 
+
         # Prepare query string for API call
         query_builder += "/v1/tags"
 
@@ -357,7 +384,8 @@ class LookupController(object):
             "client_id": self.__client_id,
             "client_secret": self.__client_secret
         }
-        query_builder = APIHelper.append_url_with_query_parameters(query_builder, query_parameters)
+        query_builder = APIHelper\
+            .append_url_with_query_parameters(query_builder, query_parameters)
 
         # Validate and preprocess url
         query_url = APIHelper.clean_url(query_builder)
@@ -369,22 +397,26 @@ class LookupController(object):
         }
 
         # Prepare and invoke the API call request to fetch the response
-        response = unirest.get(query_url, headers=headers)
+        response = requests.get(query_url, headers=headers)
 
-        # Error handling using HTTP status codes
-        if response.code == 404:
-            raise APIException("Not Found", 404, response.body)
+        # Error handling using HTTP status status_codes
+        if response.status_code == 404:
+            raise APIException("Not Found", 404, response.json())
 
-        elif response.code == 401:
-            raise APIException("Unauthorized", 401, response.body)
+        elif response.status_code == 401:
+            raise APIException("Unauthorized", 401, response.json())
 
-        elif response.code < 200 or response.code > 206:  # 200 = HTTP OK
-            raise APIException("HTTP Response Not OK", response.code, response.body)
-        
+        elif response.status_code < 200 or\
+                response.status_code > 206:  # 200 = HTTP OK
+            raise APIException(
+                "HTTP Response Not OK", response.status_code, response.json())
+
         # Try to cast response to desired type
-        if isinstance(response.body, dict):
-            # Response is already in a dictionary, return the object 
-            return GetTagsWrapper(**response.body)
-        
-        # If we got here then an error occured while trying to parse the response
-        raise APIException("Invalid JSON returned", response.code, response.body) 
+        if isinstance(response.json(), dict):
+            # Response is already in a dictionary, return the object
+            return GetTagsWrapper(**response.json())
+
+        # If we got here then an error occured while
+        # trying to parse the response
+        raise APIException(
+            "Invalid JSON returned", response.status_code, response.json())

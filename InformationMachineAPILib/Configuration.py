@@ -3,11 +3,10 @@
 """
    InformationMachineAPILib.Configuration
 
-   
+
 """
 
-class Configuration :
+
+class Configuration:
     # The base Uri for API calls
     BASE_URI = "https://api.iamdata.co"
-
-

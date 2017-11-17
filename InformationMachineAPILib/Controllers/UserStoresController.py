@@ -3,9 +3,9 @@
 """
    InformationMachineAPILib.Controllers.UserStoresController
 
-   
+
 """
-import unirest
+import requests
 
 from InformationMachineAPILib.APIHelper import APIHelper
 from InformationMachineAPILib.Configuration import Configuration
@@ -77,12 +77,12 @@ class UserStoresController(object):
         """
         # The base uri for api requests
         query_builder = Configuration.BASE_URI
- 
+
         # Prepare query string for API call
         query_builder += "/v1/users/{user_id}/stores"
 
         # Process optional template parameters
-        query_builder = APIHelper.append_url_with_template_parameters(query_builder, { 
+        query_builder = APIHelper.append_url_with_template_parameters(query_builder, {
             "user_id": user_id
         })
 
@@ -105,25 +105,25 @@ class UserStoresController(object):
         }
 
         # Prepare and invoke the API call request to fetch the response
-        response = unirest.get(query_url, headers=headers)
+        response = requests.get(query_url, headers=headers)
 
         # Error handling using HTTP status codes
-        if response.code == 401:
-            raise APIException("Unauthorized", 401, response.body)
+        if response.status_code == 401:
+            raise APIException("Unauthorized", 401, response.json())
 
-        elif response.code == 404:
-            raise APIException("Not Found", 404, response.body)
+        elif response.status_code == 404:
+            raise APIException("Not Found", 404, response.json())
 
-        elif response.code < 200 or response.code > 206:  # 200 = HTTP OK
-            raise APIException("HTTP Response Not OK", response.code, response.body)
-        
+        elif response.status_code < 200 or response.status_code > 206:  # 200 = HTTP OK
+            raise APIException("HTTP Response Not OK", response.status_code, response.json())
+
         # Try to cast response to desired type
-        if isinstance(response.body, dict):
-            # Response is already in a dictionary, return the object 
-            return GetAllStoresWrapper(**response.body)
-        
+        if isinstance(response.json(), dict):
+            # Response is already in a dictionary, return the object
+            return GetAllStoresWrapper(**response.json())
+
         # If we got here then an error occured while trying to parse the response
-        raise APIException("Invalid JSON returned", response.code, response.body) 
+        raise APIException("Invalid JSON returned", response.status_code, response.json())
 
     def user_stores_connect_store(self,
                                   payload,
@@ -164,21 +164,23 @@ class UserStoresController(object):
         """
         # The base uri for api requests
         query_builder = Configuration.BASE_URI
- 
+
         # Prepare query string for API call
         query_builder += "/v1/users/{user_id}/stores"
 
         # Process optional template parameters
-        query_builder = APIHelper.append_url_with_template_parameters(query_builder, { 
-            "user_id": user_id
-        })
+        query_builder = APIHelper\
+            .append_url_with_template_parameters(query_builder, {
+                "user_id": user_id
+            })
 
         # Process optional query parameters
         query_parameters = {
             "client_id": self.__client_id,
             "client_secret": self.__client_secret
         }
-        query_builder = APIHelper.append_url_with_query_parameters(query_builder, query_parameters)
+        query_builder = APIHelper\
+            .append_url_with_query_parameters(query_builder, query_parameters)
 
         # Validate and preprocess url
         query_url = APIHelper.clean_url(query_builder)
@@ -191,31 +193,33 @@ class UserStoresController(object):
         }
 
         # Prepare and invoke the API call request to fetch the response
-        response = unirest.post(query_url, headers=headers,  params=APIHelper.json_serialize(payload))
-
+        response = requests.post(
+            query_url, headers=headers,
+            data=APIHelper.json_serialize(payload))
+        import ipdb; ipdb.set_trace()
         # Error handling using HTTP status codes
-        if response.code == 400:
-            raise APIException("Bad request", 400, response.body)
+        if response.status_code == 400:
+            raise APIException("Bad request", 400, response.json())
 
-        elif response.code == 401:
-            raise APIException("Unauthorized", 401, response.body)
+        elif response.status_code == 401:
+            raise APIException("Unauthorized", 401, response.json())
 
-        elif response.code == 404:
-            raise APIException("Not Found", 404, response.body)
+        elif response.status_code == 404:
+            raise APIException("Not Found", 404, response.json())
 
-        elif response.code == 500:
-            raise APIException("Internal Server Error", 500, response.body)
+        elif response.status_code == 500:
+            raise APIException("Internal Server Error", 500, response.json())
 
-        elif response.code < 200 or response.code > 206:  # 200 = HTTP OK
-            raise APIException("HTTP Response Not OK", response.code, response.body)
-        
+        elif response.status_code < 200 or response.status_code > 206:  # 200 = HTTP OK
+            raise APIException("HTTP Response Not OK", response.status_code, response.json())
+
         # Try to cast response to desired type
-        if isinstance(response.body, dict):
-            # Response is already in a dictionary, return the object 
-            return ConnectStoreWrapper(**response.body)
-        
+        if isinstance(response.json(), dict):
+            # Response is already in a dictionary, return the object
+            return ConnectStoreWrapper(**response.json())
+
         # If we got here then an error occured while trying to parse the response
-        raise APIException("Invalid JSON returned", response.code, response.body) 
+        raise APIException("Invalid JSON returned", response.status_code, response.json())
 
     def user_stores_connect_o_auth_store(self,
                                          payload,
@@ -257,12 +261,12 @@ class UserStoresController(object):
         """
         # The base uri for api requests
         query_builder = Configuration.BASE_URI
- 
+
         # Prepare query string for API call
         query_builder += "/v1/users/{user_id}/stores/oauth"
 
         # Process optional template parameters
-        query_builder = APIHelper.append_url_with_template_parameters(query_builder, { 
+        query_builder = APIHelper.append_url_with_template_parameters(query_builder, {
             "user_id": user_id
         })
 
@@ -284,31 +288,31 @@ class UserStoresController(object):
         }
 
         # Prepare and invoke the API call request to fetch the response
-        response = unirest.post(query_url, headers=headers,  params=APIHelper.json_serialize(payload))
+        response = requests.post(query_url, headers=headers,  params=APIHelper.json_serialize(payload))
 
         # Error handling using HTTP status codes
-        if response.code == 400:
-            raise APIException("Bad request", 400, response.body)
+        if response.status_code == 400:
+            raise APIException("Bad request", 400, response.json())
 
-        elif response.code == 401:
-            raise APIException("Unauthorized", 401, response.body)
+        elif response.status_code == 401:
+            raise APIException("Unauthorized", 401, response.json())
 
-        elif response.code == 404:
-            raise APIException("Not Found", 404, response.body)
+        elif response.status_code == 404:
+            raise APIException("Not Found", 404, response.json())
 
-        elif response.code == 500:
-            raise APIException("Internal Server Error", 500, response.body)
+        elif response.status_code == 500:
+            raise APIException("Internal Server Error", 500, response.json())
 
-        elif response.code < 200 or response.code > 206:  # 200 = HTTP OK
-            raise APIException("HTTP Response Not OK", response.code, response.body)
-        
+        elif response.status_code < 200 or response.status_code > 206:  # 200 = HTTP OK
+            raise APIException("HTTP Response Not OK", response.status_code, response.json())
+
         # Try to cast response to desired type
-        if isinstance(response.body, dict):
-            # Response is already in a dictionary, return the object 
-            return ConnectStoreWrapper(**response.body)
-        
+        if isinstance(response.json(), dict):
+            # Response is already in a dictionary, return the object
+            return ConnectStoreWrapper(**response.json())
+
         # If we got here then an error occured while trying to parse the response
-        raise APIException("Invalid JSON returned", response.code, response.body) 
+        raise APIException("Invalid JSON returned", response.status_code, response.json())
 
     def user_stores_get_single_store(self,
                                      user_id,
@@ -354,12 +358,12 @@ class UserStoresController(object):
         """
         # The base uri for api requests
         query_builder = Configuration.BASE_URI
- 
+
         # Prepare query string for API call
         query_builder += "/v1/users/{user_id}/stores/{id}"
 
         # Process optional template parameters
-        query_builder = APIHelper.append_url_with_template_parameters(query_builder, { 
+        query_builder = APIHelper.append_url_with_template_parameters(query_builder, {
             "user_id": user_id,
             "id": id
         })
@@ -381,25 +385,25 @@ class UserStoresController(object):
         }
 
         # Prepare and invoke the API call request to fetch the response
-        response = unirest.get(query_url, headers=headers)
+        response = requests.get(query_url, headers=headers)
 
         # Error handling using HTTP status codes
-        if response.code == 401:
-            raise APIException("Unauthorized", 401, response.body)
+        if response.status_code == 401:
+            raise APIException("Unauthorized", 401, response.json())
 
-        elif response.code == 404:
-            raise APIException("Not Found", 404, response.body)
+        elif response.status_code == 404:
+            raise APIException("Not Found", 404, response.json())
 
-        elif response.code < 200 or response.code > 206:  # 200 = HTTP OK
-            raise APIException("HTTP Response Not OK", response.code, response.body)
-        
+        elif response.status_code < 200 or response.status_code > 206:  # 200 = HTTP OK
+            raise APIException("HTTP Response Not OK", response.status_code, response.json())
+
         # Try to cast response to desired type
-        if isinstance(response.body, dict):
-            # Response is already in a dictionary, return the object 
-            return GetSingleStoresWrapper(**response.body)
-        
+        if isinstance(response.json(), dict):
+            # Response is already in a dictionary, return the object
+            return GetSingleStoresWrapper(**response.json())
+
         # If we got here then an error occured while trying to parse the response
-        raise APIException("Invalid JSON returned", response.code, response.body) 
+        raise APIException("Invalid JSON returned", response.status_code, response.json())
 
     def user_stores_update_store_connection(self,
                                             payload,
@@ -428,12 +432,12 @@ class UserStoresController(object):
         """
         # The base uri for api requests
         query_builder = Configuration.BASE_URI
- 
+
         # Prepare query string for API call
         query_builder += "/v1/users/{user_id}/stores/{id}"
 
         # Process optional template parameters
-        query_builder = APIHelper.append_url_with_template_parameters(query_builder, { 
+        query_builder = APIHelper.append_url_with_template_parameters(query_builder, {
             "user_id": user_id,
             "id": id
         })
@@ -456,28 +460,28 @@ class UserStoresController(object):
         }
 
         # Prepare and invoke the API call request to fetch the response
-        response = unirest.put(query_url, headers=headers,  params=APIHelper.json_serialize(payload))
+        response = requests.put(query_url, headers=headers,  params=APIHelper.json_serialize(payload))
 
         # Error handling using HTTP status codes
-        if response.code == 401:
-            raise APIException("Unauthorized", 401, response.body)
+        if response.status_code == 401:
+            raise APIException("Unauthorized", 401, response.json())
 
-        elif response.code == 404:
-            raise APIException("Not Found", 404, response.body)
+        elif response.status_code == 404:
+            raise APIException("Not Found", 404, response.json())
 
-        elif response.code == 500:
-            raise APIException("Internal Server Error", 500, response.body)
+        elif response.status_code == 500:
+            raise APIException("Internal Server Error", 500, response.json())
 
-        elif response.code < 200 or response.code > 206:  # 200 = HTTP OK
-            raise APIException("HTTP Response Not OK", response.code, response.body)
-        
+        elif response.status_code < 200 or response.status_code > 206:  # 200 = HTTP OK
+            raise APIException("HTTP Response Not OK", response.status_code, response.json())
+
         # Try to cast response to desired type
-        if isinstance(response.body, dict):
-            # Response is already in a dictionary, return the object 
-            return UpdateStoreConnectionWrapper(**response.body)
-        
+        if isinstance(response.json(), dict):
+            # Response is already in a dictionary, return the object
+            return UpdateStoreConnectionWrapper(**response.json())
+
         # If we got here then an error occured while trying to parse the response
-        raise APIException("Invalid JSON returned", response.code, response.body) 
+        raise APIException("Invalid JSON returned", response.status_code, response.json())
 
     def user_stores_delete_single_store(self,
                                         user_id,
@@ -503,12 +507,12 @@ class UserStoresController(object):
         """
         # The base uri for api requests
         query_builder = Configuration.BASE_URI
- 
+
         # Prepare query string for API call
         query_builder += "/v1/users/{user_id}/stores/{id}"
 
         # Process optional template parameters
-        query_builder = APIHelper.append_url_with_template_parameters(query_builder, { 
+        query_builder = APIHelper.append_url_with_template_parameters(query_builder, {
             "user_id": user_id,
             "id": id
         })
@@ -530,22 +534,22 @@ class UserStoresController(object):
         }
 
         # Prepare and invoke the API call request to fetch the response
-        response = unirest.delete(query_url, headers=headers)
+        response = requests.delete(query_url, headers=headers)
 
         # Error handling using HTTP status codes
-        if response.code == 401:
-            raise APIException("Unauthorized", 401, response.body)
+        if response.status_code == 401:
+            raise APIException("Unauthorized", 401, response.json())
 
-        elif response.code == 500:
-            raise APIException("Internal Server Error", 500, response.body)
+        elif response.status_code == 500:
+            raise APIException("Internal Server Error", 500, response.json())
 
-        elif response.code < 200 or response.code > 206:  # 200 = HTTP OK
-            raise APIException("HTTP Response Not OK", response.code, response.body)
-        
+        elif response.status_code < 200 or response.status_code > 206:  # 200 = HTTP OK
+            raise APIException("HTTP Response Not OK", response.status_code, response.json())
+
         # Try to cast response to desired type
-        if isinstance(response.body, dict):
-            # Response is already in a dictionary, return the object 
-            return DeleteSingleStoreWrapper(**response.body)
-        
+        if isinstance(response.json(), dict):
+            # Response is already in a dictionary, return the object
+            return DeleteSingleStoreWrapper(**response.json())
+
         # If we got here then an error occured while trying to parse the response
-        raise APIException("Invalid JSON returned", response.code, response.body) 
+        raise APIException("Invalid JSON returned", response.status_code, response.json())

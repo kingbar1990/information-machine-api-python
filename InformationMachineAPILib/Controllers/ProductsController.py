@@ -3,9 +3,9 @@
 """
    InformationMachineAPILib.Controllers.ProductsController
 
-   
+
 """
-import unirest
+import requests
 
 from InformationMachineAPILib.APIHelper import APIHelper
 from InformationMachineAPILib.Configuration import Configuration
@@ -21,7 +21,6 @@ from InformationMachineAPILib.Models.GetUPCsByNameResponseWrapper import GetUPCs
 
 
 class ProductsController(object):
-
 
     """A Controller to access Endpoints in the InformationMachineAPILib API."""
 
@@ -69,7 +68,7 @@ class ProductsController(object):
         """
         # The base uri for api requests
         query_builder = Configuration.BASE_URI
- 
+
         # Prepare query string for API call
         query_builder += "/v1/products"
 
@@ -84,7 +83,8 @@ class ProductsController(object):
             "client_id": self.__client_id,
             "client_secret": self.__client_secret
         }
-        query_builder = APIHelper.append_url_with_query_parameters(query_builder, query_parameters)
+        query_builder = APIHelper\
+            .append_url_with_query_parameters(query_builder, query_parameters)
 
         # Validate and preprocess url
         query_url = APIHelper.clean_url(query_builder)
@@ -96,25 +96,28 @@ class ProductsController(object):
         }
 
         # Prepare and invoke the API call request to fetch the response
-        response = unirest.get(query_url, headers=headers)
+        response = requests.get(query_url, headers=headers)
 
         # Error handling using HTTP status codes
-        if response.code == 404:
-            raise APIException("Not found", 404, response.body)
+        if response.status_code == 404:
+            raise APIException("Not found", 404, response.json())
 
-        elif response.code == 401:
-            raise APIException("Unauthorized", 401, response.body)
+        elif response.status_code == 401:
+            raise APIException("Unauthorized", 401, response.json())
 
-        elif response.code < 200 or response.code > 206:  # 200 = HTTP OK
-            raise APIException("HTTP Response Not OK", response.code, response.body)
-        
+        elif response.status_code < 200 or\
+                response.status_code > 206:  # 200 = HTTP OK
+            raise APIException(
+                "HTTP Response Not OK", response.status_code, response.json())
+
         # Try to cast response to desired type
-        if isinstance(response.body, dict):
-            # Response is already in a dictionary, return the object 
-            return GetProductsWrapper(**response.body)
-        
+        if isinstance(response.json(), dict):
+            # Response is already in a dictionary, return the object
+            return GetProductsWrapper(**response.json())
+
         # If we got here then an error occured while trying to parse the response
-        raise APIException("Invalid JSON returned", response.code, response.body) 
+        raise APIException(
+            "Invalid JSON returned", response.status_code, response.json())
 
     def products_get_product(self,
                              product_id,
@@ -141,14 +144,15 @@ class ProductsController(object):
         """
         # The base uri for api requests
         query_builder = Configuration.BASE_URI
- 
+
         # Prepare query string for API call
         query_builder += "/v1/products/{product_id}"
 
         # Process optional template parameters
-        query_builder = APIHelper.append_url_with_template_parameters(query_builder, { 
-            "product_id": product_id
-        })
+        query_builder = APIHelper\
+            .append_url_with_template_parameters(query_builder, {
+                "product_id": product_id
+            })
 
         # Process optional query parameters
         query_parameters = {
@@ -156,7 +160,8 @@ class ProductsController(object):
             "client_id": self.__client_id,
             "client_secret": self.__client_secret
         }
-        query_builder = APIHelper.append_url_with_query_parameters(query_builder, query_parameters)
+        query_builder = APIHelper\
+            .append_url_with_query_parameters(query_builder, query_parameters)
 
         # Validate and preprocess url
         query_url = APIHelper.clean_url(query_builder)
@@ -168,25 +173,27 @@ class ProductsController(object):
         }
 
         # Prepare and invoke the API call request to fetch the response
-        response = unirest.get(query_url, headers=headers)
-
+        response = requests.get(query_url, headers=headers)
         # Error handling using HTTP status codes
-        if response.code == 404:
-            raise APIException("Not found", 404, response.body)
+        if response.status_code == 404:
+            raise APIException("Not found", 404, response.json())
 
-        elif response.code == 401:
-            raise APIException("Unauthorized", 401, response.body)
+        elif response.status_code == 401:
+            raise APIException("Unauthorized", 401, response.json())
 
-        elif response.code < 200 or response.code > 206:  # 200 = HTTP OK
-            raise APIException("HTTP Response Not OK", response.code, response.body)
-        
+        elif response.status_code < 200 or\
+                response.status_code > 206:  # 200 = HTTP OK
+            raise APIException(
+                "HTTP Response Not OK", response.status_code, response.json())
+
         # Try to cast response to desired type
-        if isinstance(response.body, dict):
-            # Response is already in a dictionary, return the object 
-            return GetProductWrapper(**response.body)
-        
+        if isinstance(response.json(), dict):
+            # Response is already in a dictionary, return the object
+            return GetProductWrapper(**response.json())
+
         # If we got here then an error occured while trying to parse the response
-        raise APIException("Invalid JSON returned", response.code, response.body) 
+        raise APIException(
+            "Invalid JSON returned", response.status_code, response.json())
 
     def products_get_product_purchases(self,
                                        product_id,
@@ -214,14 +221,15 @@ class ProductsController(object):
         """
         # The base uri for api requests
         query_builder = Configuration.BASE_URI
- 
+
         # Prepare query string for API call
         query_builder += "/v1/products/{product_id}/purchases"
 
         # Process optional template parameters
-        query_builder = APIHelper.append_url_with_template_parameters(query_builder, { 
-            "product_id": product_id
-        })
+        query_builder = APIHelper\
+            .append_url_with_template_parameters(query_builder, {
+                "product_id": product_id
+            })
 
         # Process optional query parameters
         query_parameters = {
@@ -230,7 +238,8 @@ class ProductsController(object):
             "client_id": self.__client_id,
             "client_secret": self.__client_secret
         }
-        query_builder = APIHelper.append_url_with_query_parameters(query_builder, query_parameters)
+        query_builder = APIHelper\
+            .append_url_with_query_parameters(query_builder, query_parameters)
 
         # Validate and preprocess url
         query_url = APIHelper.clean_url(query_builder)
@@ -242,25 +251,28 @@ class ProductsController(object):
         }
 
         # Prepare and invoke the API call request to fetch the response
-        response = unirest.get(query_url, headers=headers)
+        response = requests.get(query_url, headers=headers)
 
         # Error handling using HTTP status codes
-        if response.code == 404:
-            raise APIException("Not found", 404, response.body)
+        if response.status_code == 404:
+            raise APIException("Not found", 404, response.json())
 
-        elif response.code == 401:
-            raise APIException("Unauthorized", 401, response.body)
+        elif response.status_code == 401:
+            raise APIException("Unauthorized", 401, response.json())
 
-        elif response.code < 200 or response.code > 206:  # 200 = HTTP OK
-            raise APIException("HTTP Response Not OK", response.code, response.body)
-        
+        elif response.status_code < 200 or\
+                response.status_code > 206:  # 200 = HTTP OK
+            raise APIException(
+                "HTTP Response Not OK", response.status_code, response.json())
+
         # Try to cast response to desired type
-        if isinstance(response.body, dict):
-            # Response is already in a dictionary, return the object 
-            return GetProductPurchasesWrapper(**response.body)
-        
+        if isinstance(response.json(), dict):
+            # Response is already in a dictionary, return the object
+            return GetProductPurchasesWrapper(**response.json())
+
         # If we got here then an error occured while trying to parse the response
-        raise APIException("Invalid JSON returned", response.code, response.body) 
+        raise APIException(
+            "Invalid JSON returned", response.status_code, response.json())
 
     def products_get_product_prices(self,
                                     product_ids):
@@ -285,7 +297,7 @@ class ProductsController(object):
         """
         # The base uri for api requests
         query_builder = Configuration.BASE_URI
- 
+
         # Prepare query string for API call
         query_builder += "/v1/products_prices"
 
@@ -295,7 +307,8 @@ class ProductsController(object):
             "client_id": self.__client_id,
             "client_secret": self.__client_secret
         }
-        query_builder = APIHelper.append_url_with_query_parameters(query_builder, query_parameters)
+        query_builder = APIHelper\
+            .append_url_with_query_parameters(query_builder, query_parameters)
 
         # Validate and preprocess url
         query_url = APIHelper.clean_url(query_builder)
@@ -307,25 +320,28 @@ class ProductsController(object):
         }
 
         # Prepare and invoke the API call request to fetch the response
-        response = unirest.get(query_url, headers=headers)
+        response = requests.get(query_url, headers=headers)
 
         # Error handling using HTTP status codes
-        if response.code == 404:
-            raise APIException("Not found", 404, response.body)
+        if response.status_code == 404:
+            raise APIException("Not found", 404, response.json())
 
-        elif response.code == 401:
-            raise APIException("Unauthorized", 401, response.body)
+        elif response.status_code == 401:
+            raise APIException("Unauthorized", 401, response.json())
 
-        elif response.code < 200 or response.code > 206:  # 200 = HTTP OK
-            raise APIException("HTTP Response Not OK", response.code, response.body)
-        
+        elif response.status_code < 200 or\
+                response.status_code > 206:  # 200 = HTTP OK
+            raise APIException(
+                "HTTP Response Not OK", response.status_code, response.json())
+
         # Try to cast response to desired type
-        if isinstance(response.body, dict):
-            # Response is already in a dictionary, return the object 
-            return GetProductPricesWrapper(**response.body)
-        
+        if isinstance(response.json(), dict):
+            # Response is already in a dictionary, return the object
+            return GetProductPricesWrapper(**response.json())
+
         # If we got here then an error occured while trying to parse the response
-        raise APIException("Invalid JSON returned", response.code, response.body) 
+        raise APIException(
+            "Invalid JSON returned", response.status_code, response.json())
 
     def products_get_products_alternatives(self,
                                            product_ids,
@@ -355,7 +371,7 @@ class ProductsController(object):
         """
         # The base uri for api requests
         query_builder = Configuration.BASE_URI
- 
+
         # Prepare query string for API call
         query_builder += "/v1/products_alternatives"
 
@@ -366,7 +382,8 @@ class ProductsController(object):
             "client_id": self.__client_id,
             "client_secret": self.__client_secret
         }
-        query_builder = APIHelper.append_url_with_query_parameters(query_builder, query_parameters)
+        query_builder = APIHelper\
+            .append_url_with_query_parameters(query_builder, query_parameters)
 
         # Validate and preprocess url
         query_url = APIHelper.clean_url(query_builder)
@@ -378,28 +395,31 @@ class ProductsController(object):
         }
 
         # Prepare and invoke the API call request to fetch the response
-        response = unirest.get(query_url, headers=headers)
+        response = requests.get(query_url, headers=headers)
 
         # Error handling using HTTP status codes
-        if response.code == 400:
-            raise APIException("Bad request", 400, response.body)
+        if response.status_code == 400:
+            raise APIException("Bad request", 400, response.json())
 
-        elif response.code == 404:
-            raise APIException("Not found", 404, response.body)
+        elif response.status_code == 404:
+            raise APIException("Not found", 404, response.json())
 
-        elif response.code == 401:
-            raise APIException("Unauthorized", 401, response.body)
+        elif response.status_code == 401:
+            raise APIException("Unauthorized", 401, response.json())
 
-        elif response.code < 200 or response.code > 206:  # 200 = HTTP OK
-            raise APIException("HTTP Response Not OK", response.code, response.body)
-        
+        elif response.status_code < 200 or\
+                response.status_code > 206:  # 200 = HTTP OK
+            raise APIException(
+                "HTTP Response Not OK", response.status_code, response.json())
+
         # Try to cast response to desired type
-        if isinstance(response.body, dict):
-            # Response is already in a dictionary, return the object 
-            return GetProductsAlternativesWrapper(**response.body)
-        
+        if isinstance(response.json(), dict):
+            # Response is already in a dictionary, return the object
+            return GetProductsAlternativesWrapper(**response.json())
+
         # If we got here then an error occured while trying to parse the response
-        raise APIException("Invalid JSON returned", response.code, response.body) 
+        raise APIException(
+            "Invalid JSON returned", response.status_code, response.json())
 
     def products_get_user_products(self,
                                    user_id,
@@ -433,14 +453,15 @@ class ProductsController(object):
         """
         # The base uri for api requests
         query_builder = Configuration.BASE_URI
- 
+
         # Prepare query string for API call
         query_builder += "/v1/users/{user_id}/products"
 
         # Process optional template parameters
-        query_builder = APIHelper.append_url_with_template_parameters(query_builder, { 
-            "user_id": user_id
-        })
+        query_builder = APIHelper\
+            .append_url_with_template_parameters(query_builder, {
+                "user_id": user_id
+            })
 
         # Process optional query parameters
         query_parameters = {
@@ -451,7 +472,8 @@ class ProductsController(object):
             "client_id": self.__client_id,
             "client_secret": self.__client_secret
         }
-        query_builder = APIHelper.append_url_with_query_parameters(query_builder, query_parameters)
+        query_builder = APIHelper\
+            .append_url_with_query_parameters(query_builder, query_parameters)
 
         # Validate and preprocess url
         query_url = APIHelper.clean_url(query_builder)
@@ -463,25 +485,28 @@ class ProductsController(object):
         }
 
         # Prepare and invoke the API call request to fetch the response
-        response = unirest.get(query_url, headers=headers)
+        response = requests.get(query_url, headers=headers)
 
         # Error handling using HTTP status codes
-        if response.code == 404:
-            raise APIException("Not found", 404, response.body)
+        if response.status_code == 404:
+            raise APIException("Not found", 404, response.json())
 
-        elif response.code == 401:
-            raise APIException("Unauthorized", 401, response.body)
+        elif response.status_code == 401:
+            raise APIException("Unauthorized", 401, response.json())
 
-        elif response.code < 200 or response.code > 206:  # 200 = HTTP OK
-            raise APIException("HTTP Response Not OK", response.code, response.body)
-        
+        elif response.status_code < 200 or\
+                response.status_code > 206:  # 200 = HTTP OK
+            raise APIException(
+                "HTTP Response Not OK", response.status_code, response.json())
+
         # Try to cast response to desired type
-        if isinstance(response.body, dict):
-            # Response is already in a dictionary, return the object 
-            return GetUserProducts(**response.body)
-        
+        if isinstance(response.json(), dict):
+            # Response is already in a dictionary, return the object
+            return GetUserProducts(**response.json())
+
         # If we got here then an error occured while trying to parse the response
-        raise APIException("Invalid JSON returned", response.code, response.body) 
+        raise APIException(
+            "Invalid JSON returned", response.status_code, response.json())
 
     def products_submit_product_names_for_upc_resolve(self,
                                                       payload,
@@ -515,7 +540,7 @@ class ProductsController(object):
         """
         # The base uri for api requests
         query_builder = Configuration.BASE_URI
- 
+
         # Prepare query string for API call
         query_builder += "/v1/products/upc_resolve_request"
 
@@ -525,7 +550,8 @@ class ProductsController(object):
             "client_id": self.__client_id,
             "client_secret": self.__client_secret
         }
-        query_builder = APIHelper.append_url_with_query_parameters(query_builder, query_parameters)
+        query_builder = APIHelper\
+            .append_url_with_query_parameters(query_builder, query_parameters)
 
         # Validate and preprocess url
         query_url = APIHelper.clean_url(query_builder)
@@ -538,22 +564,27 @@ class ProductsController(object):
         }
 
         # Prepare and invoke the API call request to fetch the response
-        response = unirest.post(query_url, headers=headers,  params=APIHelper.json_serialize(payload))
+        response = requests.post(
+            query_url, headers=headers,
+            params=APIHelper.json_serialize(payload))
 
         # Error handling using HTTP status codes
-        if response.code == 401:
-            raise APIException("Unauthorized", 401, response.body)
+        if response.status_code == 401:
+            raise APIException("Unauthorized", 401, response.json())
 
-        elif response.code < 200 or response.code > 206:  # 200 = HTTP OK
-            raise APIException("HTTP Response Not OK", response.code, response.body)
-        
+        elif response.status_code < 200 or\
+                response.status_code > 206:  # 200 = HTTP OK
+            raise APIException(
+                "HTTP Response Not OK", response.status_code, response.json())
+
         # Try to cast response to desired type
-        if isinstance(response.body, dict):
-            # Response is already in a dictionary, return the object 
-            return GetUPCsByNameRequestWrapper(**response.body)
-        
+        if isinstance(response.json(), dict):
+            # Response is already in a dictionary, return the object
+            return GetUPCsByNameRequestWrapper(**response.json())
+
         # If we got here then an error occured while trying to parse the response
-        raise APIException("Invalid JSON returned", response.code, response.body) 
+        raise APIException(
+            "Invalid JSON returned", response.status_code, response.json())
 
     def products_get_upc_by_product_name_answer(self,
                                                 request_id):
@@ -580,21 +611,23 @@ class ProductsController(object):
         """
         # The base uri for api requests
         query_builder = Configuration.BASE_URI
- 
+
         # Prepare query string for API call
         query_builder += "/v1/products/upc_resolve_response/{request_id}"
 
         # Process optional template parameters
-        query_builder = APIHelper.append_url_with_template_parameters(query_builder, { 
-            "request_id": request_id
-        })
+        query_builder = APIHelper\
+            .append_url_with_template_parameters(query_builder, {
+                "request_id": request_id
+            })
 
         # Process optional query parameters
         query_parameters = {
             "client_id": self.__client_id,
             "client_secret": self.__client_secret
         }
-        query_builder = APIHelper.append_url_with_query_parameters(query_builder, query_parameters)
+        query_builder = APIHelper\
+            .append_url_with_query_parameters(query_builder, query_parameters)
 
         # Validate and preprocess url
         query_url = APIHelper.clean_url(query_builder)
@@ -606,16 +639,19 @@ class ProductsController(object):
         }
 
         # Prepare and invoke the API call request to fetch the response
-        response = unirest.get(query_url, headers=headers)
+        response = requests.get(query_url, headers=headers)
 
         # Error handling using HTTP status codes
-        if response.code < 200 or response.code > 206:  # 200 = HTTP OK
-            raise APIException("HTTP Response Not OK", response.code, response.body) 
-    
+        if response.status_code < 200 or\
+                response.status_code > 206:  # 200 = HTTP OK
+            raise APIException(
+                "HTTP Response Not OK", response.status_code, response.json())
+
         # Try to cast response to desired type
-        if isinstance(response.body, dict):
-            # Response is already in a dictionary, return the object 
-            return GetUPCsByNameResponseWrapper(**response.body)
-        
+        if isinstance(response.json(), dict):
+            # Response is already in a dictionary, return the object
+            return GetUPCsByNameResponseWrapper(**response.json())
+
         # If we got here then an error occured while trying to parse the response
-        raise APIException("Invalid JSON returned", response.code, response.body) 
+        raise APIException(
+            "Invalid JSON returned", response.status_code, response.json())
